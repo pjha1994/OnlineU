@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <!-- Navbar -->
+        {% block content %}
+        {% include "navbar.html" %}
+
+        <h1>{{login_session["username"]}}'s Profile</h1>
+        <img src="{{login_session['picture']}}" width=128></img>
+        <h2>Enrolled Courses</h2>
+        <h2>Enrolled Degrees</h2>
+        <h2>Completed Courses</h2>
+        <h2>Completed Degrees</h2>
+
+        {% endblock %}
+        </div>
+    </body>
+</html>

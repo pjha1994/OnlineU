@@ -1,0 +1,17 @@
+<ul id="navbar">
+    <li><a href="index.php">Home</a></li>
+    <li><a href="majorsPublic.html">Majors</a></li>
+    <li><a href="coursesPublic.html">Courses</a></li>
+    <li><a href="">Forums</a></li>
+    {% block content %}
+    {% if not "username" in login_session%}
+    <li><a href="login.html">Log in</a></li>
+    {% else %}
+    <li><a href="profile.html">Profile</a></li>
+    <li><a href="gdisconnect">Log out</a></li>
+    <li><a href="admin.html">Admin</a></li>
+    {% endif %}
+    {% endblock %}
+    <li><a href="volunteer.html">Volunteer</a></li>
+    <li><a href="donate.html">Donate</a></li>
+</ul>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div id="exam">
+        </div>
+        <div id="controls">
+            <button type="button" id="newQuestion">+</button>
+        </div>
+
+        <script src="exam.js"></script>
+        <script>
+            var e = new Exam();
+            e.render();
+
+            var newQuestionButton = document.getElementById("newQuestion");
+            newQuestionButton.addEventListener("click", function(){e.addQuestion();});
+        </script>
+
+    </body>
+</html>

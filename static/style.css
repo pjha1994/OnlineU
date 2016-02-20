@@ -1,0 +1,77 @@
+body {
+    margin: 0px;
+}
+
+#navbar {
+    list-style-type: none;
+    padding: 0px;
+    margin-top: 0px;
+    height: auto;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #999999;
+}
+
+#navbar li {
+    display: inline-block;
+    vertical-align: top;
+    background-color: #DDDDDD;
+}
+
+#navbar li:hover {
+    background-color: #FFFFFF;
+}
+
+#navbar li a {
+    height:50px;
+    width: 100px;
+    color: #000000;
+    border: 1px solid #999999;
+    text-decoration: none;
+    text-align:center;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.expandButton {
+    margin-left: 10px;
+    min-width: 200px;
+}
+
+.enrollButton {
+    margin-left: 10px;
+}
+
+.dangerButton {
+    background-color: orange;
+    color: black;
+    border: 2px dashed black;
+    font-size: 16px;
+    display: inline;
+    float: right;
+}
+
+.majorBlock {
+    padding: 10px;
+    padding-bottom: 25px;
+    background-color: #cccccc;
+    border: 2px solid #e3e3e3;
+    width: 500px;
+    min-height: 100px;
+}
+
+.majorBlock h2 {
+    margin: 0px;
+}
+
+p {
+    font-family: sans-serif;
+}
+
+.majorBlock p {
+    margin-bottom: 0px;
+}
+
+.subtle {
+    text-decoration: none;
+    color: #000000;
+}
