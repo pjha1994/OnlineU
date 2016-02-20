@@ -6,6 +6,8 @@ This is a website for free, curated online courses.
 sudo python project.py
 
 ## Priorities:
+-lis
+-list
 *Courses
    *Let users enroll in courses
    *Automatically enroll user in all courses for a major when the user enrolls in that major
