@@ -45,6 +45,12 @@ function Exam() {
     var questions = [];
 
     this.updateAll = function() {
+        var titleEntry = document.getElementById("title");
+        var titleLabel = document.getElementById("titlePublic");
+        if (titleEntry) {
+            title = titleEntry.value;
+            titleLabel.innerHTML = title;
+        }
         for (var i = 0; i < questions.length; i++) {
             questions[i].update();
         }
@@ -54,7 +60,7 @@ function Exam() {
     this.render = function(divID) {
         divID = divID || "exam";
         var s = "";
-        s = s + "<h2>" + title + "</h2>"
+        s = s + "<input onkeyup='updateAll();' type='text' id='title' value='" + title + "'></input>"
 
         for (var i = 0; i < questions.length; i++) {
             s = s + questions[i].render();
@@ -68,7 +74,7 @@ function Exam() {
         divID = divID || "examPreview";
 
         var s = "";
-        s = s + "<h2>" + title + "</h2>"
+        s = s + "<h2 id='titlePublic'>" + title + "</h2>"
 
         for (var i = 0; i < questions.length; i++) {
             s = s + questions[i].renderPublic();
