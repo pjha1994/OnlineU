@@ -4,19 +4,35 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <div id="exam">
+        <div class="exam" id="exam">
+        </div>
+        <div class="exam" id = "examPreview">
         </div>
         <div id="controls">
             <button type="button" id="newQuestion">+</button>
+            <button type="button" id="deleteQuestion">-</button>
         </div>
 
         <script src="exam.js"></script>
         <script>
             var e = new Exam();
-            e.render();
+
+            function renderAll() {
+                e.updateAll();
+                e.render();
+                e.renderPublic();
+            }
+            renderAll();
+
+            function updateAll() {
+                e.updateAll();
+            }
 
             var newQuestionButton = document.getElementById("newQuestion");
             newQuestionButton.addEventListener("click", function(){e.addQuestion();});
+
+            var deleteQuestionButton = document.getElementById("deleteQuestion");
+            deleteQuestionButton.addEventListener("click", function(){e.deleteQuestion();});
         </script>
 
     </body>

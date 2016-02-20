@@ -1,0 +1,7 @@
+.exam {
+    min-width: 400px;
+    padding: 10px;
+    border: 1px solid black;
+    display: inline-block;
+    vertical-align: top;
+}
