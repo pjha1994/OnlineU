@@ -126,3 +126,18 @@ if __name__ == "__main__":
     DBSession = sessionmaker(bind=engine)
     session = DBSession()
 
+    majors = ["Computer Science", "Paleontology", "Philosophy", "Sociology", "Accounting", 
+    "Archaeology", "Geology", "Computer Engineering", "Computer Engineeering",
+    "History", "Oceanography", "Environmental Science", "Political Science", "Chemistry",
+    "Physics", "Mathematics", "Mechanical Engineering"]
+
+    # Add majors
+    for major in majors:
+        newMajor = Major(
+            name=major,
+            description=""
+        )
+        session.add(newMajor)
+
+    session.commit()
+

@@ -14,6 +14,8 @@
             <p>{{course.description}}</p>
             {% for task in tasks %}
                 <div class="majorBlock">
+                    <h2>{{task.name}}</h2>
+                    <p>{{task.url}}</p>
                     {% if task.completed %}
                         <p>Task complete!</p>
                     {% endif %}
