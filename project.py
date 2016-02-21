@@ -39,11 +39,11 @@ def sendStaticFile(path):
     return send_from_directory("static", path)
 
 @app.route('/')
-@app.route('/index.php')
+@app.route('/index.html')
 def showHomepage():
     enrolled_majors = getEnrolledMajors()
     enrolled_courses = getEnrolledCourses()
-    return render_template('index.php', login_session=login_session, enrolled_majors=enrolled_majors, enrolled_courses=enrolled_courses)
+    return render_template('index.html', login_session=login_session, enrolled_majors=enrolled_majors, enrolled_courses=enrolled_courses)
 
 @app.route('/profile.html')
 def showProfile():
@@ -381,7 +381,7 @@ def gdisconnect():
         #response = make_response(json.dumps('Successfully disconnected.'), 200)
         #response.headers['Content-Type'] = 'application/json'
         response = "<p>Disconnected successfully. Redirecting...</p>"
-        response = response + "<script>setTimeout(function() {window.location.href = 'index.php';}, 4000);</script>"
+        response = response + "<script>setTimeout(function() {window.location.href = 'index.html';}, 4000);</script>"
         return response
     else:
         del login_session['access_token'] 
@@ -419,7 +419,7 @@ def restaurantsJSON():
 @app.route('/')
 def showRestaurants():
     restaurants = session.query(Restaurant).order_by(asc(Restaurant.name))
-    return render_template('index.php', restaurants=restaurants)
+    return render_template('index.html', restaurants=restaurants)
 
 # Create a new restaurant
 

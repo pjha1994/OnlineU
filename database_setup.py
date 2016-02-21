@@ -8,6 +8,16 @@ Base = declarative_base()
 DATABASE_NAME = "main_database.db"
 
 '''
+    Association table for courses in majors
+'''
+class MajorCourse(Base):
+    __tablename__ = "major_courses"
+
+    id = Column(Integer, primary_key=True)
+    major_id = Column(Integer, ForeignKey('majors.major_id'), nullable=False)
+    course_id = Column(Integer, ForeignKey('courses.course_id'), nullable=False)
+
+'''
     Association table for user course enrollments
 '''
 class UserCourse(Base):
