@@ -14,6 +14,16 @@
             <a class="subtle" href="{{course.url}}"><div class="majorBlock">
                 <h2>{{course.name}}</h2>
                 <p>{{course.description}}</p>
+                {% if course in enrolled_courses %}
+                <p><font size="5" color="#00CC00">&#10003;</font>You are enrolled in this course</p>
+                <form action="/courses/{{course.course_id}}/unenroll/", method="post">
+                    <input type="submit" value="Unenroll" onclick="return confirm('Are you sure you want to UNENROLL from this course? You will lose all progress.');">
+                </form>
+                {% else %}
+                <form action="/courses/{{course.course_id}}/enroll/", method="post">
+                    <input type="submit" value="Enroll">
+                </form>
+                {% endif %}
             </div></a>
         {% endfor %}
         {% endblock %}

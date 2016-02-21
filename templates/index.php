@@ -22,16 +22,20 @@
             <p>Progress:</p>
             </div>
         {% endfor %}
-        <div id="majors">
-        </div>
-
+        
         <!-- Courses -->
         <h2>{{login_session["username"].split(" ")[0]}}'s Courses</h2>
-        <div id="courses">
+        {% for course in enrolled_courses %}
+            <div class="majorBlock">
+            <h2>{{course.name}}</h2>
+            <p>{{course.description}}</p>
+            <p>Grade:</p>
+            </div>
+        {% endfor %}
+
         {% else %}
-        <p>Sign in to view your curriculum.</p>
+            <p>Sign in to view your curriculum.</p>
         {% endif %}
         {% endblock %}
-        </div>
     </body>
 </html>

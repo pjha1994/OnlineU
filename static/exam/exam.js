@@ -60,7 +60,7 @@ function Exam() {
     this.render = function(divID) {
         divID = divID || "exam";
         var s = "";
-        s = s + "<input onkeyup='updateAll();' type='text' id='title' value='" + title + "'></input>"
+        s = s + "<input class='titleInput' onkeyup='updateAll();' type='text' id='title' value='" + title + "'></input>"
 
         for (var i = 0; i < questions.length; i++) {
             s = s + questions[i].render();

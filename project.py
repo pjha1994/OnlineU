@@ -42,8 +42,8 @@ def sendStaticFile(path):
 @app.route('/index.php')
 def showHomepage():
     enrolled_majors = getEnrolledMajors()
-    enrolled_courses = []
-    return render_template('index.php', login_session=login_session, enrolled_majors=enrolled_majors)
+    enrolled_courses = getEnrolledCourses()
+    return render_template('index.php', login_session=login_session, enrolled_majors=enrolled_majors, enrolled_courses=enrolled_courses)
 
 @app.route('/profile.html')
 def showProfile():
@@ -67,8 +67,9 @@ def showMajorsPublic():
 
 @app.route('/coursesPublic.html')
 def showCoursesPublic():
+    enrolled_courses = getEnrolledCourses()
     courses = session.query(Course).order_by(asc(Course.name))
-    return render_template('coursesPublic.html', courses=courses, login_session=login_session)
+    return render_template('coursesPublic.html', courses=courses, login_session=login_session, enrolled_courses=enrolled_courses)
 
 '''
     Create a new course
@@ -109,6 +110,32 @@ def editCourse(course_id):
         session.add(editedCourse)
         session.commit()
         return redirect(url_for('showCourses'))
+
+'''
+    Enroll in a course
+'''
+@app.route('/courses/<int:course_id>/enroll/', methods=['POST'])
+def enrollInCourse(course_id):
+    if request.method == 'POST':
+        selectedCourse = session.query(Course).filter_by(course_id=course_id).one()
+        user_id = getUserID(login_session["email"])
+        newEnrollment = UserCourse(user_id=user_id, course_id=course_id)
+        session.add(newEnrollment)
+        session.commit()
+        return redirect(url_for('showCoursesPublic'))
+
+'''
+    Unenroll from a course
+'''
+@app.route('/courses/<int:course_id>/unenroll/', methods=['POST'])
+def unenrollInCourse(course_id):
+    if request.method == 'POST':
+        selectedCourse = session.query(Course).filter_by(course_id=course_id).one()
+        user_id = getUserID(login_session["email"])
+        enrollment = session.query(UserCourse).filter_by(course_id=course_id, user_id=user_id).all()[0]
+        session.delete(enrollment)
+        session.commit()
+        return redirect(url_for('showCoursesPublic'))
 
 '''
     Create a new major
@@ -176,7 +203,7 @@ def enrollInMajor(major_id):
     Unenroll from a major
 '''
 @app.route('/majors/<int:major_id>/unenroll/', methods=['POST'])
-def unenrollInMajor(major_id):
+def unenrollFromMajor(major_id):
     if request.method == 'POST':
         selectedMajor = session.query(Major).filter_by(major_id=major_id).one()
         user_id = getUserID(login_session["email"])
@@ -504,6 +531,18 @@ def deleteMenuItem(restaurant_id, menu_id):
 
 def loggedin():
     return "email" in login_session
+
+def getEnrolledCourses():
+    if not loggedin():
+        return []
+    user_id = getUserID(login_session["email"])
+    associations = session.query(UserCourse).filter_by(user_id=user_id).all()
+    enrolled_courses = []
+    for association in associations:
+        course_id = association.course_id
+        course = session.query(Course).filter_by(course_id=course_id).one()
+        enrolled_courses.append(course)
+    return enrolled_courses
 
 def getEnrolledMajors():
     if not loggedin():

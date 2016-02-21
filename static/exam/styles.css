@@ -3,6 +3,21 @@ h2 {
     margin: 0px;
     padding-left: 10px;
     margin-bottom: 10px;
+    width: 400px;
+}
+
+.titleInput {
+    background-color: #AAA;
+    margin: 0px;
+    padding-left: 10px;
+    margin-bottom: 10px;
+    height: 25px;
+    border: none;
+    width: 400px;
+    font-family: serif;
+    font-size: 18pt;
+    font-weight: bold;
+    display: table-cell;
 }
 
 .exam {
