@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <!-- Navbar -->
+        {% block content %}
+        {% include "navbar.html" %}
+
+        <!-- About -->
+        <div>
+            <h1>{{course.name}}</h1>
+            <p>{{course.description}}</p>
+        </div>
+        {% include "footer.html" %}
+        {% endblock %}
+    </body>
+</html>

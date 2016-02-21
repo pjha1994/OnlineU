@@ -14,6 +14,7 @@
             <a class="subtle" href="{{course.url}}"><div class="majorBlock">
                 <h2>{{course.name}}</h2>
                 <p>{{course.description}}</p>
+                <a href="/courses/{{course.course_id}}">Details</a>
                 {% if course in enrolled_courses %}
                 <p><font size="5" color="#00CC00">&#10003;</font>You are enrolled in this course</p>
                 <form action="/courses/{{course.course_id}}/unenroll/", method="post">
@@ -28,5 +29,7 @@
         {% endfor %}
         {% endblock %}
         </div>
+
+        {% include "footer.html" %}
     </body>
 </html>

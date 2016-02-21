@@ -94,6 +94,14 @@ def showCourses():
     return render_template('courses.html', courses=courses)
 
 '''
+    View a specific course
+'''
+@app.route('/courses/<int:course_id>')
+def viewCourse(course_id):
+    course = session.query(Course).filter_by(course_id=course_id).one()
+    return render_template('coursePage.html', course=course)
+
+'''
     Update a course
 '''
 @app.route('/courses/<int:course_id>/edit/', methods=['POST'])
