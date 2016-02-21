@@ -10,9 +10,10 @@ sudo python project.py
   * Create a course template page
   * Show course link and exams for course on course page
   * Show completed courses on user profile
-  * Add support for hosting our own course material
+  * Add support for integrating our own course material
 * Majors
   * Create major template page
+  * Allow courses to be added to the major via admin page
   * Automatically enroll user in all courses for a major when the user enrolls in that major
   * Track user progress through majors
 * Exams
