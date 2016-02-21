@@ -14,6 +14,7 @@ sudo python project.py
   * Show completed courses on user profile
   * Add support for integrating our own course material
 * Majors
+  * Add support for optional and required minors
   * Create major template page
   * Allow courses to be added to the major via admin page
   * Automatically enroll user in all courses for a major when the user enrolls in that major
