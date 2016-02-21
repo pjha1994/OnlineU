@@ -20,6 +20,7 @@ sudo python project.py
   * Automatically enroll user in all courses for a major when the user enrolls in that major
   * Track user progress through majors
 * Exams
+  * Add a donation page
   * Allow admins to edit exams online
   * Add suport for math expressions
   * Add support for multiple choice questions
