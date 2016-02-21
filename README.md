@@ -9,10 +9,9 @@ sudo python project.py
 
 ## Todo:
 * Courses
-  * Create a course template page
-  * Show course link and exams for course on course page
+  * Allow admins to edit course pages 
+  * Show course links and exams for course on course page
   * Show completed courses on user profile
-  * Add support for integrating our own course material
 * Majors
   * Add support for optional and required minors
   * Create major template page
