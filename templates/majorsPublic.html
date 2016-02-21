@@ -8,26 +8,28 @@
         {% block content %}
         {% include "navbar.html" %}
 
-        <h1>Majors</h1>
         <div>
-        {% for major in majors %}
-            <div class="majorBlock">
-            <h2>{{major.name}}</h2>
-            <p>{{major.description}}</p>
-            <a href="/majors/{{major.major_id}}">Details</a>
-                {% if major in enrolled_majors %}
-                <p><font size="5" color="#00CC00">&#10003;</font>You are enrolled in this major</p>
-                <form action="/majors/{{major.major_id}}/unenroll/", method="post">
-                    <input class="enrollButton" type="submit" value="Unenroll" onclick="return confirm('Are you sure you want to UNENROLL from this major? (This will not affect your enrolled classes)');">
-                </form>
-                {% else %}
-                <form action="/majors/{{major.major_id}}/enroll/", method="post">
-                    <input class="enrollButton" type="submit" value="Enroll">
-                </form>
-                {% endif %}
+            <h1>Majors</h1>
+            <div>
+            {% for major in majors %}
+                <div class="majorBlock">
+                <h2>{{major.name}}</h2>
+                <p>{{major.description}}</p>
+                <a href="/majors/{{major.major_id}}">Details</a>
+                    {% if major in enrolled_majors %}
+                    <p><font size="5" color="#00CC00">&#10003;</font>You are enrolled in this major</p>
+                    <form action="/majors/{{major.major_id}}/unenroll/", method="post">
+                        <input class="enrollButton" type="submit" value="Unenroll" onclick="return confirm('Are you sure you want to UNENROLL from this major? (This will not affect your enrolled classes)');">
+                    </form>
+                    {% else %}
+                    <form action="/majors/{{major.major_id}}/enroll/", method="post">
+                        <input class="enrollButton" type="submit" value="Enroll">
+                    </form>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            {% endblock %}
             </div>
-        {% endfor %}
-        {% endblock %}
         </div>
         {% include "footer.html" %}
     </body>

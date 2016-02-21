@@ -91,7 +91,7 @@ def newCourse():
 @app.route('/courses.html')
 def showCourses():
     courses = session.query(Course).order_by(asc(Course.name))
-    return render_template('courses.html', courses=courses)
+    return render_template('courses.html', courses=courses, login_session=login_session)
 
 '''
     View a specific course
@@ -99,7 +99,7 @@ def showCourses():
 @app.route('/courses/<int:course_id>')
 def viewCourse(course_id):
     course = session.query(Course).filter_by(course_id=course_id).one()
-    return render_template('coursePage.html', course=course)
+    return render_template('coursePage.html', course=course, login_session=login_session)
 
 '''
     Update a course
@@ -165,7 +165,7 @@ def newMajor():
 @app.route('/majors.html')
 def showMajors():
     majors = session.query(Major).order_by(asc(Major.name))
-    return render_template('majors.html', majors=majors)
+    return render_template('majors.html', majors=majors, login_session=login_session)
 
 '''
     Update a major
@@ -255,7 +255,7 @@ def createUser(login_session):
 @app.route('/users.html')
 def showUsers():
     users = session.query(User).order_by(asc(User.user_id))
-    return render_template('users.html', users=users)
+    return render_template('users.html', users=users, login_session=login_session)
 
 '''
     Delete a user
