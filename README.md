@@ -3,9 +3,11 @@
 This is a website for free, curated online courses. 
 
 ## Starting the server
+* If you want the G+ login to work, you will need to create a client_secrets.json file using https://console.developers.google.com
+
 sudo python project.py
 
-## Priorities:
+## Todo:
 * Courses
   * Create a course template page
   * Show course link and exams for course on course page
