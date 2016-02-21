@@ -47,7 +47,9 @@ def showHomepage():
 
 @app.route('/profile.html')
 def showProfile():
-    return render_template('profile.html', login_session=login_session)
+    enrolled_majors = getEnrolledMajors()
+    enrolled_courses = getEnrolledCourses()
+    return render_template('profile.html', login_session=login_session, enrolled_majors=enrolled_majors, enrolled_courses=enrolled_courses)
 
 @app.route('/volunteer.html')
 def showVolunteerPage():
