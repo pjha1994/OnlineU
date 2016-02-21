@@ -7,7 +7,6 @@ sudo python project.py
 
 ## Priorities:
 * Courses
-  * Let users enroll in courses
   * Automatically enroll user in all courses for a major when the user enrolls in that major
   * Create a course page template
   * Show course link and exams for course on course page
