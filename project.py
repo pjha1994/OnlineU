@@ -79,7 +79,7 @@ def showCoursesPublic():
 @app.route('/courses/new/', methods=['POST'])
 def newCourse():
     if request.method == 'POST':
-        newCourse = Course(name=request.form['name'], description=request.form['description'], url=request.form['url'])
+        newCourse = Course(name=request.form['name'], description=request.form['description'])
         session.add(newCourse)
         flash('New Course %s Successfully Created' % newCourse.name)
         session.commit()
@@ -99,7 +99,11 @@ def showCourses():
 @app.route('/courses/<int:course_id>')
 def viewCourse(course_id):
     course = session.query(Course).filter_by(course_id=course_id).one()
-    return render_template('coursePage.html', course=course, login_session=login_session)
+    tasks = getTasksByCourse(course_id)
+    return render_template('coursePage.html',
+        tasks=tasks,
+        course=course,
+        login_session=login_session)
 
 '''
     Update a course
@@ -110,13 +114,11 @@ def editCourse(course_id):
     if request.method == 'POST':
         if request.form['name']:
             editedCourse.name = request.form['name']
-            flash('Course Successfully Edited %s' % editedCourse.name)
         if request.form['description']:
             editedCourse.description = request.form['description']
-            flash('Course Successfully Edited %s' % editedCourse.name)
         if request.form['url']:
             editedCourse.url = request.form['url']
-            flash('Course Successfully Edited %s' % editedCourse.name)
+        flash('Course Successfully Edited %s' % editedCourse.name)
         session.add(editedCourse)
         session.commit()
         return redirect(url_for('showCourses'))
@@ -146,6 +148,18 @@ def unenrollInCourse(course_id):
         session.delete(enrollment)
         session.commit()
         return redirect(url_for('showCoursesPublic'))
+
+'''
+    Delete a course
+'''
+@app.route('/courses/<int:course_id>/delete/', methods=['POST'])
+def deleteCourse(course_id):
+    courseToDelete = session.query(Course).filter_by(course_id=course_id).one()
+    if request.method == 'POST':
+        session.delete(courseToDelete)
+        flash('%s Successfully Deleted' % courseToDelete.name)
+        session.commit()
+        return redirect(url_for('showCourses'))
 
 '''
     Create a new major
@@ -541,6 +555,17 @@ def deleteMenuItem(restaurant_id, menu_id):
 
 def loggedin():
     return "email" in login_session
+
+def getTask(task_id):
+    task = session.query(Task).filter_by(task_id=task_id).one()
+    return task
+
+def getTasksByCourse(course_id):
+    if not loggedin():
+        return []
+    user_id = getUserID(login_session["email"])
+    tasks = session.query(UserTasks).filter_by(user_id=user_id, course_id=course_id).all()
+    return tasks
 
 def getEnrolledCourses():
     if not loggedin():

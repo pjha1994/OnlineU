@@ -102,12 +102,16 @@ footer li a:hover {
 }
 
 .dangerButton {
-    background-color: orange;
+    background: orange;
     color: black;
     border: 2px dashed black;
     font-size: 16px;
     display: inline;
     float: right;
+}
+
+.dangerButton:hover {
+    background: #FF0000;
 }
 
 .majorBlock {
@@ -121,7 +125,7 @@ footer li a:hover {
 
 .majorBlock h2 {
     margin: 0px;
-    color: #1C643F;
+    color: #000;
 }
 
 .majorBlock p {

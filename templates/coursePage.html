@@ -12,6 +12,13 @@
         <div>
             <h1>{{course.name}}</h1>
             <p>{{course.description}}</p>
+            {% for task in tasks %}
+                <div class="majorBlock">
+                    {% if task.completed %}
+                        <p>Task complete!</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
         </div>
         {% include "footer.html" %}
         {% endblock %}

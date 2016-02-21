@@ -13,6 +13,9 @@
             <div>
             {% for course in courses %}
                 <div class="majorBlock">
+                    <h2>{{course.name}}</h2>
+                    <p>{{course.description}}</p>
+                    <!--
                     <form id="form{{course.course_id}}" action="/courses/{{course.course_id}}/edit/", method="post">
                         Course name:<br>
                         <input type="text" value="{{course.name}}" name="name"><br>
@@ -22,6 +25,7 @@
                         <input type="text" value="{{course.url}}" name="url"><br>
                         <input type="submit" value="Update" method="post">
                     </form>
+                    -->
                     <form action="/courses/{{course.course_id}}/delete/", method="post">
                         <input class="dangerButton" type="submit" value="Delete" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this course?');">
                     </form>
@@ -30,18 +34,16 @@
             {% endblock %}
             </div>
 
-            <div>
-                <h2>Create a new course</h2>
-                <form action="/courses/new/", method="post">
-                    Name of the course:<br>
-                    <input type="text" name="name"><br>
-                    Description for the course:<br>
-                    <input type="text" name="description"><br>
-                    URL for the course:<br>
-                    <input type="text" name="url"><br>
-                    <input type="submit" value="Submit">
-                </form>
-            </div>
+            <h2>Create a new course</h2>
+            <form action="/courses/new/", method="post">
+                <p>Name of the course:</p>
+                <input type="text" name="name"><br>
+                <p>Description for the course:</p>
+                <input type="text" name="description"><br>
+                <!--URL for the course:<br>
+                <input type="text" name="url"><br>-->
+                <input type="submit" value="Submit">
+            </form>
         </div>
     </body>
 </html>

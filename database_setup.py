@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, Boolean
+from sqlalchemy import Column, ForeignKey, Integer, String, Boolean, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
@@ -49,6 +49,20 @@ class User(Base):
     email = Column(String(250), nullable=False)
     picture = Column(String(250))
     isAdmin = Column(Boolean, default=False)
+
+'''
+    Association table for individual tasks
+'''
+class UserTasks(Base):
+    __tablename__ = 'user_tasks'
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, nullable=False)
+    course_id = Column(Integer, nullable=False)
+    task_id = Column(Integer, nullable=False)
+    grade = Column(Float)
+    completed = Column(Boolean, default=False)
+    isGraded = Column(Boolean, default=False)
 
 '''
     One component of a course
