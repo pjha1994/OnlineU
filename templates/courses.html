@@ -12,7 +12,7 @@
             <h1>Courses</h1>
             <div>
             {% for course in courses %}
-                <div class="majorBlock">
+                <a class="subtle" href="/courses/{{course.course_id}}/editTasks"><div class="majorBlock">
                     <h2>{{course.name}}</h2>
                     <p>{{course.description}}</p>
                     <!--
@@ -29,7 +29,7 @@
                     <form action="/courses/{{course.course_id}}/delete/", method="post">
                         <input class="dangerButton" type="submit" value="Delete" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this course?');">
                     </form>
-                </div>
+                </div></a>
             {% endfor %}
             {% endblock %}
             </div>

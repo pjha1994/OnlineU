@@ -2,6 +2,7 @@ from sqlalchemy import Column, ForeignKey, Integer, String, Boolean, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 
@@ -62,7 +63,6 @@ class UserTasks(Base):
     task_id = Column(Integer, nullable=False)
     grade = Column(Float)
     completed = Column(Boolean, default=False)
-    isGraded = Column(Boolean, default=False)
 
 '''
     One component of a course
@@ -71,7 +71,9 @@ class UserTasks(Base):
 class Task(Base):
     __tablename__ = "tasks"
     
+    course_id = Column(Integer, ForeignKey('courses.course_id'), nullable=False)
     task_id = Column(Integer, primary_key=True)
+    isGraded = Column(Boolean, default=False)
     name = Column(String(250))
     url = Column(String(250), nullable=False)
 
@@ -115,8 +117,12 @@ class Major(Base):
             'major_id': self.major_id
         }
 
-
 engine = create_engine('sqlite:///' + DATABASE_NAME)
-
-
 Base.metadata.create_all(engine)
+
+if __name__ == "__main__":
+
+    Base.metadata.bind = engine
+    DBSession = sessionmaker(bind=engine)
+    session = DBSession()
+

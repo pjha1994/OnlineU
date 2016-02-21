@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <!-- Navbar -->
+        {% block content %}
+        {% include "navbar.html" %}
+        <div>
+            <h1>{{course.name}}</h1>
+            <p>{{course.description}}</p>
+            <h2>Tasks:</h2>
+            <div>
+            {% for task in tasks %}
+                <div class="majorBlock">
+                <h2>{{task.name}}</h2>
+                <p>{{task.url}}</p>
+                </div>
+            {% endfor %}
+            {% endblock %} 
+            </div>
+
+            <h2>Create a new task</h2>
+                <form action="/courses/{{course.course_id}}/tasks/new/", method="post">
+                    <p>Name of the task:</p>
+                    <input type="text" name="name"><br>
+                    <p>URL for the task:</p>
+                    <input type="text" name="url"><br>
+                    <p>Graded: <input type="checkbox" name="isGraded"></p>
+                    <input type="submit" value="Submit">
+                </form>
+        </div>
+    </body>
+</html>
