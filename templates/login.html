@@ -46,7 +46,7 @@ function signInCallback(authResult) {
         if (result) {
           $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
          setTimeout(function() {
-          window.location.href = "index.php";
+          window.location.href = "index.html";
          }, 4000);
           
       } else if (authResult['error']) {
