@@ -56,6 +56,7 @@ footer li a {
     text-align:center;
     display: table-cell;
     vertical-align: middle;
+    font-family: sans-serif;
 }
 
 footer li a:hover {
@@ -95,10 +96,6 @@ footer li a:hover {
 .expandButton {
     margin-left: 10px;
     min-width: 200px;
-}
-
-.enrollButton {
-    margin-left: 10px;
 }
 
 .dangerButton {
@@ -143,5 +140,13 @@ footer li a:hover {
 }
 
 .enrollButton {
+    float: right;
+    background: #666;
+    border: 2px solid #888;
+    margin-left: 10px;
+    min-height: 40px;
+}
 
+.enrollButton:hover {
+    background: #FFF;
 }
