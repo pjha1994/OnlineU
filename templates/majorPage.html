@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <!-- Navbar -->
+        {% block content %}
+        {% include "navbar.html" %}
+
+        <!-- About -->
+        <div>
+            <h1>{{major.name}}</h1>
+            <p>{{major.description}}</p>
+            {% for course in courses %}
+                <a class="subtle" href="#"><div class="majorBlock">
+                    <h2>{{course.name}}</h2>
+                </div></a>
+            {% endfor %}
+        </div>
+        {% include "footer.html" %}
+        {% endblock %}
+    </body>
+</html>

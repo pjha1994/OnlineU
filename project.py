@@ -277,6 +277,18 @@ def unenrollFromMajor(major_id):
         session.commit()
         return redirect(url_for('showMajorsPublic'))
 
+'''
+    View a specific major
+'''
+@app.route('/majors/<int:major_id>')
+def viewMajor(major_id):
+    major = session.query(Major).filter_by(major_id=major_id).one()
+    courses = getCoursesByMajor(major_id)
+    return render_template('majorPage.html',
+        courses=courses,
+        major=major,
+        login_session=login_session)
+
 # Create anti-forgery state token
 @app.route('/login.html')
 def showLogin():
@@ -486,6 +498,14 @@ def loggedin():
 def getTask(task_id):
     task = session.query(Task).filter_by(task_id=task_id).one()
     return task
+
+def getCoursesByMajor(major_id):
+    ids = session.query(MajorCourse).filter_by(major_id=major_id).all()
+    courses = []
+    for course_id in ids:
+        course = session.query(Course).filter_by(course_id=course_id).one()
+        courses.append(course)
+    return courses
 
 def getTasksByCourse(course_id):
     tasks = session.query(Task).filter_by(course_id=course_id).all()
