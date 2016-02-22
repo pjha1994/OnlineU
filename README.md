@@ -9,15 +9,11 @@ sudo python project.py
 
 ## Todo:
 * Courses
-  * Allow admins to edit course pages 
-  * Show course links and exams for course on course page
   * Show completed courses on user profile
 * Majors
-  * Add support for optional and required minors
-  * Create major template page
   * Allow courses to be added to the major via admin page
   * Automatically enroll user in all courses for a major when the user enrolls in that major
-  * Track user progress through majors
+  * Add support for optional and required minors
 * Exams
   * Add a donation page
   * Allow admins to edit exams online
