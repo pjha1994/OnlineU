@@ -14,7 +14,14 @@
             <div class="majorBlock">
                 <h2>{{user.name}}</h2>
                 <p>{{user.email}}</p>
-                <p>Is admin: {{user.isAdmin}}</p>
+                <form action="/users/{{user.user_id}}/update/" method="post">
+                    {% if user.isAdmin %}
+                    <input type="checkbox" name="isAdmin" value="True" checked>Is Admin?<br>
+                    {% else %}
+                    <input type="checkbox" name="isAdmin" value="True">Is Admin?<br>
+                    {% endif %}
+                    <input type="submit" value="Update">
+                </form>
                 <form action="/users/{{user.user_id}}/delete/", method="post">
                     <input class="dangerButton" type="submit" value="Delete" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this user?');">
                 </form>

@@ -296,7 +296,7 @@ def showLogin():
                     for x in xrange(32))
     login_session['state'] = state
     # return "The current session state is %s" % login_session['state']
-    return render_template('login.html', STATE=state)
+    return render_template('login.html', login_session=login_session, STATE=state)
 
 '''
     Create a user
@@ -325,6 +325,23 @@ def showUsers():
     return render_template('users.html', users=users, login_session=login_session)
 
 '''
+    Update a user
+'''
+@app.route('/users/<int:user_id>/update/', methods=['POST'])
+def editUser(user_id):
+    editedUser = session.query(User).filter_by(user_id=user_id).one()
+    if request.method == 'POST':
+        checklist = request.form.getlist("isAdmin")
+        if len(checklist) > 0:
+            editedUser.isAdmin = True
+        else:
+            editedUser.isAdmin = False
+        flash('User %s Successfully Edited' % editedUser.name)
+        session.add(editedUser)
+        session.commit()
+        return redirect(url_for('showUsers'))
+
+'''
     Delete a user
 '''
 @app.route('/users/<int:user_id>/delete/', methods=['POST'])
@@ -335,6 +352,7 @@ def deleteUser(user_id):
         flash('%s Successfully Deleted' % userToDelete.name)
         session.commit()
         return redirect(url_for('showUsers', user_id=user_id))
+
 
 
 @app.route('/gconnect', methods=['POST'])
@@ -419,7 +437,8 @@ def gconnect():
         user_id = createUser(login_session)
     login_session['user_id'] = user_id
 
-    # login_session["isAdmin"] = ...
+    user = session.query(User).filter_by(user_id=user_id).one()
+    login_session["isAdmin"] = user.isAdmin
 
     output = ''
     output += '<h1>Welcome, '
