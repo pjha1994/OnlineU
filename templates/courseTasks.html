@@ -14,8 +14,11 @@
             <div>
             {% for task in tasks %}
                 <div class="majorBlock">
-                <h2>{{task.name}}</h2>
-                <p>{{task.url}}</p>
+                    <h2>{{task.name}}</h2>
+                    <p>{{task.url}}</p>
+                    <form action="/courses/{{course.course_id}}/tasks/{{task.task_id}}/delete/", method="post">
+                        <input class="dangerButton" type="submit" value="Delete" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this task?');">
+                    </form>
                 </div>
             {% endfor %}
             {% endblock %} 

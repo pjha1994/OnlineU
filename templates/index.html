@@ -28,12 +28,12 @@
             <!-- Courses -->
             <h2>{{login_session["username"].split(" ")[0]}}'s Courses</h2>
             {% for course in enrolled_courses %}
-                <div class="majorBlock">
+                <a class="subtle" href="/courses/{{course.course_id}}"><div class="majorBlock">
                 <h2>{{course.name}}</h2>
                 <p>{{course.description}}</p>
                 <p>Progress:</p>
                 <p>Grade:</p>
-                </div>
+                </div></a>
             {% endfor %}
 
             {% else %}

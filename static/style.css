@@ -123,6 +123,10 @@ footer li a:hover {
     min-height: 100px;
 }
 
+.majorBlock:hover {
+    background: #DFFAEC;
+}
+
 .majorBlock h2 {
     margin: 0px;
     color: #000;

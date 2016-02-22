@@ -90,6 +90,18 @@ def newTask(course_id):
     return redirect(url_for('editCourseTasks', course_id=course_id))
 
 '''
+    Delete a task
+'''
+@app.route('/courses/<int:course_id>/tasks/<int:task_id>/delete/', methods=['POST'])
+def deleteTask(course_id, task_id):
+    if request.method == 'POST':
+        taskToDelete = session.query(Task).filter_by(task_id=task_id).one()
+        session.delete(taskToDelete)
+        flash('%s Successfully Deleted' % taskToDelete.name)
+        session.commit()
+        return redirect(url_for('editCourseTasks', course_id=course_id))
+
+'''
     Edit a course's tasks
 '''
 @app.route('/courses/<int:course_id>/editTasks')

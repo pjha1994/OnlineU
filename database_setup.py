@@ -85,7 +85,6 @@ class Course(Base):
 
     course_id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
-    url = Column(String(250))
     description = Column(String(250))
 
     @property
@@ -94,8 +93,7 @@ class Course(Base):
         return {
             'name': self.name,
             'description': self.description,
-            'id': self.course_id,
-            'url': self.url
+            'id': self.course_id
         }
 
 '''
@@ -131,6 +129,8 @@ if __name__ == "__main__":
     "History", "Oceanography", "Environmental Science", "Political Science", "Chemistry",
     "Physics", "Mathematics", "Mechanical Engineering"]
 
+    courses = ["Computer Programming"]
+
     # Add majors
     for major in majors:
         newMajor = Major(
@@ -138,6 +138,14 @@ if __name__ == "__main__":
             description=""
         )
         session.add(newMajor)
+
+    for course in courses:
+        newCourse = Course(
+            name=course,
+            description=""
+        )
+        session.add(newCourse)
+
 
     session.commit()
 
