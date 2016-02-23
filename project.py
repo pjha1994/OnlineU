@@ -58,7 +58,8 @@ def showVolunteerPage():
 
 @app.route('/admin.html')
 def showAdminPage():
-    # return "The current session state is %s" % login_session['state']
+    if not isAdmin():
+        return redirect(url_for("showHomepage"))
     return render_template('admin.html', login_session=login_session)
 
 @app.route('/majorsPublic.html')
@@ -78,6 +79,8 @@ def showCoursesPublic():
 '''
 @app.route('/courses/<int:course_id>/tasks/new/', methods=['POST'])
 def newTask(course_id):
+    if not isAdmin():
+        return
     if request.method == 'POST':
         newTask = Task(
             course_id=course_id,
@@ -94,6 +97,8 @@ def newTask(course_id):
 '''
 @app.route('/courses/<int:course_id>/tasks/<int:task_id>/delete/', methods=['POST'])
 def deleteTask(course_id, task_id):
+    if not isAdmin():
+        return
     if request.method == 'POST':
         taskToDelete = session.query(Task).filter_by(task_id=task_id).one()
         session.delete(taskToDelete)
@@ -106,9 +111,10 @@ def deleteTask(course_id, task_id):
 '''
 @app.route('/courses/<int:course_id>/editTasks')
 def editCourseTasks(course_id):
+    if not isAdmin():
+        return
     course = session.query(Course).filter_by(course_id=course_id).one()
     tasks = getTasksByCourse(course_id)
-    print tasks
     return render_template('courseTasks.html',
         tasks=tasks,
         course=course,
@@ -119,6 +125,8 @@ def editCourseTasks(course_id):
 '''
 @app.route('/courses/new/', methods=['POST'])
 def newCourse():
+    if not isAdmin():
+        return
     if request.method == 'POST':
         newCourse = Course(name=request.form['name'], description=request.form['description'])
         session.add(newCourse)
@@ -151,6 +159,8 @@ def viewCourse(course_id):
 '''
 @app.route('/courses/<int:course_id>/edit/', methods=['POST'])
 def editCourse(course_id):
+    if not isAdmin():
+        return
     editedCourse = session.query(Course).filter_by(course_id=course_id).one()
     if request.method == 'POST':
         if request.form['name']:
@@ -195,6 +205,8 @@ def unenrollInCourse(course_id):
 '''
 @app.route('/courses/<int:course_id>/delete/', methods=['POST'])
 def deleteCourse(course_id):
+    if not isAdmin():
+        return
     courseToDelete = session.query(Course).filter_by(course_id=course_id).one()
     if request.method == 'POST':
         session.delete(courseToDelete)
@@ -207,6 +219,8 @@ def deleteCourse(course_id):
 '''
 @app.route('/majors/new/', methods=['POST'])
 def newMajor():
+    if not isAdmin():
+        return
     if request.method == 'POST':
         newMajor = Major(name=request.form['name'], description=request.form['description'])
         session.add(newMajor)
@@ -227,8 +241,10 @@ def showMajors():
 '''
 @app.route('/majors/<int:major_id>/edit/', methods=['POST'])
 def editMajor(major_id):
-    editedMajor = session.query(Major).filter_by(major_id=major_id).one()
+    if not isAdmin():
+        return
     if request.method == 'POST':
+        editedMajor = session.query(Major).filter_by(major_id=major_id).one()
         if request.form['name']:
             editedMajor.name = request.form['name']
             flash('Major Successfully Edited %s' % editedMajor.name)
@@ -244,8 +260,10 @@ def editMajor(major_id):
 '''
 @app.route('/majors/<int:major_id>/delete/', methods=['POST'])
 def deleteMajor(major_id):
-    majorToDelete = session.query(Major).filter_by(major_id=major_id).one()
+    if not isAdmin():
+        return
     if request.method == 'POST':
+        majorToDelete = session.query(Major).filter_by(major_id=major_id).one()
         session.delete(majorToDelete)
         flash('%s Successfully Deleted' % majorToDelete.name)
         session.commit()
@@ -329,8 +347,10 @@ def showUsers():
 '''
 @app.route('/users/<int:user_id>/update/', methods=['POST'])
 def editUser(user_id):
-    editedUser = session.query(User).filter_by(user_id=user_id).one()
     if request.method == 'POST':
+        if not isAdmin():
+            return
+        editedUser = session.query(User).filter_by(user_id=user_id).one()
         checklist = request.form.getlist("isAdmin")
         if len(checklist) > 0:
             editedUser.isAdmin = True
@@ -346,8 +366,10 @@ def editUser(user_id):
 '''
 @app.route('/users/<int:user_id>/delete/', methods=['POST'])
 def deleteUser(user_id):
-    userToDelete = session.query(User).filter_by(user_id=user_id).one()
     if request.method == 'POST':
+        if not isAdmin():
+            return
+        userToDelete = session.query(User).filter_by(user_id=user_id).one()
         session.delete(userToDelete)
         flash('%s Successfully Deleted' % userToDelete.name)
         session.commit()
@@ -510,6 +532,9 @@ def restaurantsJSON():
     restaurants = session.query(Restaurant).all()
     return jsonify(restaurants=[r.serialize for r in restaurants])
 '''
+
+def isAdmin():
+    return loggedin() and login_session["isAdmin"]
 
 def loggedin():
     return "email" in login_session
