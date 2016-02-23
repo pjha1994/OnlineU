@@ -207,6 +207,7 @@ def enrollInCourse(course_id):
         newEnrollment = UserCourse(user_id=user_id, course_id=course_id)
         session.add(newEnrollment)
         session.commit()
+        flash('Successfully enrolled in %s' % selectedCourse.name)
         return redirect(url_for('showCoursesPublic'))
 
 '''
@@ -215,11 +216,18 @@ def enrollInCourse(course_id):
 @app.route('/courses/<int:course_id>/unenroll/', methods=['POST'])
 def unenrollInCourse(course_id):
     if request.method == 'POST':
+        # Delete enrolled tasks
+        user_id = getUserID(login_session["email"])
+        userTasks = session.query(UserTask).filter_by(user_id=user_id, course_id=course_id).all()
+        for task in userTasks:
+            session.delete(task)
+        # Delte enrollment
         selectedCourse = session.query(Course).filter_by(course_id=course_id).one()
         user_id = getUserID(login_session["email"])
         enrollment = session.query(UserCourse).filter_by(course_id=course_id, user_id=user_id).all()[0]
         session.delete(enrollment)
         session.commit()
+        flash('Successfully unenrolled from %s' % selectedCourse.name)
         return redirect(url_for('showCoursesPublic'))
 
 '''
