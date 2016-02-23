@@ -12,8 +12,8 @@ sudo python project.py
 
 ## Todo:
 * Courses
-  * Record tasks as completed when a user opens them
   * Show course progress on course page, homepage, profile
+  * Delete user progress in a course when the user un-enrolls
   * Show completed courses on user profile
 * Majors
   * Allow courses to be added to the major via admin page
