@@ -363,6 +363,21 @@ def addCourseToMajor(major_id):
     return redirect(url_for("editMajorCourses", major_id=major_id))
 
 '''
+    Remove a course from a major
+'''
+@app.route('/majors/<int:major_id>/courses/<int:course_id>/delete/', methods=["POST"])
+def removeCourseFromMajor(major_id, course_id):
+    if not isAdmin():
+        return
+    course = session.query(Course).filter_by(course_id=course_id).one()
+    removal = session.query(MajorCourse).filter_by(major_id=major_id, course_id=course_id).one()
+    session.delete(removal)
+    session.commit()
+
+    flash('Successfully removed course %s from major' % course.name)
+    return redirect(url_for("editMajorCourses", major_id=major_id))
+
+'''
     View a specific major
 '''
 @app.route('/majors/<int:major_id>')

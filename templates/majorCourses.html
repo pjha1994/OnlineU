@@ -26,7 +26,7 @@
                 <div class="majorBlock">
                     <h2>{{course.name}}</h2>
                     <p>{{course.description}}</p>
-                    <form action="/majors/{{major.major_id}}/courses/{{course.course_id}}/delete", method="post">
+                    <form action="/majors/{{major.major_id}}/courses/{{course.course_id}}/delete/", method="post">
                         <input class="dangerButton" type="submit" value="Delete" onclick="return confirm('Are you sure you want to remove this course from the major?');">
                     </form>
                 </div>
