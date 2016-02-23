@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <!-- Navbar -->
+        {% block content %}
+        {% include "navbar.html" %}
+        <div>
+            <h1>{{major.name}}</h1>
+            <p>{{major.description}}</p>
+
+            <!--
+            <form id="form{{major.major_id}}" action="/majors/{{major.major_id}}/edit/", method="post">
+                        Major name:<br>
+                        <input type="text" value="{{major.name}}" name="name"><br>
+                        Major description:<br>
+                        <textarea form="form{{major.major_id}}" name="description">{{major.description}}</textarea><br>
+                        <input type="submit" value="Update" method="post">
+                    </form>
+                     -->
+            <h2>Courses:</h2>
+            <div>
+            {% for course in courses %}
+                <div class="majorBlock">
+                    <h2>{{course.name}}</h2>
+                    <p>{{course.description}}</p>
+                    <form action="/majors/{{major.major_id}}/courses/{{course.course_id}}/delete", method="post">
+                        <input class="dangerButton" type="submit" value="Delete" onclick="return confirm('Are you sure you want to remove this course from the major?');">
+                    </form>
+                </div>
+            {% endfor %}
+            {% endblock %} 
+            </div>
+
+            <h2>Add a new course</h2>
+            <form action="/majors/{{major.major_id}}/courses/add/", method="post">
+                <select name="courseId">
+                    {% for course in allCourses %}
+                    <option value="{{course.course_id}}">{{course.name}}</option>
+                    {% endfor %}
+                </select><br><br>
+                <input type="submit" value="Add">
+            </form>
+        </div>
+    </body>
+</html>

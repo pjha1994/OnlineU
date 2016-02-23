@@ -12,18 +12,13 @@
             <h1>Majors</h1>
             <div>
             {% for major in majors %}
-                <div class="majorBlock">
-                    <form id="form{{major.major_id}}" action="/majors/{{major.major_id}}/edit/", method="post">
-                        Major name:<br>
-                        <input type="text" value="{{major.name}}" name="name"><br>
-                        Major description:<br>
-                        <textarea form="form{{major.major_id}}" name="description">{{major.description}}</textarea><br>
-                        <input type="submit" value="Update" method="post">
-                    </form>
+                <a class = "subtle"href="/majors/{{major.major_id}}/courses/"><div class="majorBlock">
+                    <h2>{{major.name}}</h2>
+                    <p>{{major.description}}</p>
                     <form action="/majors/{{major.major_id}}/delete/", method="post">
                         <input class="dangerButton" type="submit" value="Delete" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this major?');">
                     </form>
-                </div>
+                </div></a>
             {% endfor %}
             {% endblock %}
             </div>

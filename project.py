@@ -331,6 +331,38 @@ def unenrollFromMajor(major_id):
         return redirect(url_for('showMajorsPublic'))
 
 '''
+    Edit courses for a major
+'''
+@app.route('/majors/<int:major_id>/courses/')
+def editMajorCourses(major_id):
+    if not isAdmin():
+        return
+    courses = getCoursesByMajor(major_id)
+    allCourses = session.query(Course).all()
+    major = session.query(Major).filter_by(major_id=major_id).one()
+    return render_template("majorCourses.html", 
+        allCourses=allCourses,
+        login_session=login_session,
+        courses=courses,
+        major=major)
+
+'''
+    Add a course to a major
+'''
+@app.route('/majors/<int:major_id>/courses/add/', methods=['POST'])
+def addCourseToMajor(major_id):
+    if not isAdmin():
+        return
+    course_id = request.form.get("courseId")
+    course = session.query(Course).filter_by(course_id=course_id).one()
+    addition = MajorCourse(major_id=major_id, course_id=course_id)
+    session.add(addition)
+    session.commit()
+
+    flash('Successfully added course %s to major' % course.name)
+    return redirect(url_for("editMajorCourses", major_id=major_id))
+
+'''
     View a specific major
 '''
 @app.route('/majors/<int:major_id>')
@@ -598,8 +630,8 @@ def getTask(task_id):
 def getCoursesByMajor(major_id):
     ids = session.query(MajorCourse).filter_by(major_id=major_id).all()
     courses = []
-    for course_id in ids:
-        course = session.query(Course).filter_by(course_id=course_id).one()
+    for assoc in ids:
+        course = session.query(Course).filter_by(course_id=assoc.course_id).one()
         courses.append(course)
     return courses
 

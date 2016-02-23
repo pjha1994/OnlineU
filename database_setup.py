@@ -125,7 +125,7 @@ if __name__ == "__main__":
     session = DBSession()
 
     majors = ["Biology", "Computer Science", "Paleontology", "Philosophy", "Sociology", "Accounting", 
-    "Archaeology", "Geology", "Computer Engineering", "Computer Engineeering",
+    "Archaeology", "Geology", "Computer Engineeering",
     "History", "Oceanography", "Environmental Science", "Political Science", "Chemistry",
     "Physics", "Mathematics", "Mechanical Engineering"]
 
