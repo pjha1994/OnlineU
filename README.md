@@ -11,14 +11,12 @@ python database_setup.py
 sudo python project.py
 
 ## Todo:
-* Courses
-  * Show course progress on course page, homepage, profile
-  * Show next unfinished task for each course on the homepage
-  * Show completed courses on user profile
 * Majors
   * Allow courses to be added to the major via admin page
   * Automatically enroll user in all courses for a major when the user enrolls in that major
   * Add support for optional and required minors
+* Courses
+  * Show completed courses on user profile
 * Exams
   * Allow admins to edit exams online
   * Add suport for math expressions
