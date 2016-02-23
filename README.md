@@ -12,7 +12,6 @@ sudo python project.py
 
 ## Todo:
 * Majors
-  * Allow courses to be added to the major via admin page
   * Automatically enroll user in all courses for a major when the user enrolls in that major
   * Add support for optional and required minors
 * Courses
