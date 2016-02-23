@@ -12,6 +12,8 @@ sudo python project.py
 
 ## Todo:
 * Courses
+  * Record tasks as completed when a user opens them
+  * Show course progress on course page, homepage, profile
   * Show completed courses on user profile
 * Majors
   * Allow courses to be added to the major via admin page
@@ -26,5 +28,7 @@ sudo python project.py
   * Add support for randomized questions and random question selection
 * Misc
   * Add a donation page
+  * Add application form for volunteer content curators
+  * Add bug reporting
   * Issue verified certificates upon degree completion.
   * SSL/HTTPS
