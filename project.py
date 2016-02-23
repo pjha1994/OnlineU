@@ -43,9 +43,14 @@ def sendStaticFile(path):
 def showHomepage():
     enrolled_majors = getEnrolledMajors()
     enrolled_courses = getEnrolledCourses()
+    unfinished_tasks = getTopUnfinishedTasks()
     for course in enrolled_courses:
         course.progress = courseProgress(course.course_id)
-    return render_template('index.html', login_session=login_session, enrolled_majors=enrolled_majors, enrolled_courses=enrolled_courses)
+    return render_template('index.html',
+        login_session=login_session,
+        enrolled_majors=enrolled_majors,
+        enrolled_courses=enrolled_courses,
+        unfinished_tasks=unfinished_tasks)
 
 @app.route('/profile.html')
 def showProfile():
@@ -615,6 +620,21 @@ def courseProgress(course_id):
 
 def getTasksByCourse(course_id):
     tasks = session.query(Task).filter_by(course_id=course_id).all()
+    return tasks
+
+def getTopUnfinishedTasks():
+    if not loggedin():
+        return []
+    tasks = []
+    user_id = getUserID(login_session["email"])
+    courses = session.query(UserCourse).filter_by(user_id=user_id).all()
+    for course in courses:
+        courseTasks = getUserTasksByCourse(course.course_id)
+        for i in range(len(courseTasks)):
+            task = courseTasks[i]
+            if not task.complete:
+                tasks.append(task)
+                break
     return tasks
 
 def getEnrolledCourses():

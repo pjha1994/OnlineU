@@ -15,6 +15,17 @@
 
             {% if "username" in login_session %}
             <h2>{{login_session["username"].split(" ")[0]}}'s Todo List:</h2>
+            {% for task in unfinished_tasks %}
+                <a class="subtle" href="/courses/{{task.course_id}}/tasks/{{task.task_id}}/markComplete/"><div class="majorBlock">
+                    <h2>{{task.name}}</h2>
+                    {% if task.complete %}
+                        <p>Task complete!</p>
+                    {% else %}
+                        <p>Task not yet complete.</p>
+                    {% endif %}
+                </div></a>
+            {% endfor %}
+
             <!-- Majors -->
             <h2>{{login_session["username"].split(" ")[0]}}'s Majors:</h2>
             {% for major in enrolled_majors %}
