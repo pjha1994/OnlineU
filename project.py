@@ -107,6 +107,20 @@ def deleteTask(course_id, task_id):
         return redirect(url_for('editCourseTasks', course_id=course_id))
 
 '''
+    Mark a task as complete
+'''
+@app.route('/courses/<int:course_id>/tasks/<int:task_id>/markComplete/', methods=['GET', 'POST'])
+def markTaskComplete(course_id, task_id):
+    user_id = getUserID(login_session["email"])
+    task = session.query(Task).filter_by(task_id=task_id).one()
+    completion = session.query(UserTask).filter_by(user_id=user_id, course_id=course_id, task_id=task_id).one()
+    completion.completed = True
+    session.add(completion)
+    flash('%s Successfully Completed' % task.name)
+    session.commit()
+    return redirect(task.url)
+
+'''
     Edit a course's tasks
 '''
 @app.route('/courses/<int:course_id>/editTasks')
@@ -148,7 +162,7 @@ def showCourses():
 @app.route('/courses/<int:course_id>')
 def viewCourse(course_id):
     course = session.query(Course).filter_by(course_id=course_id).one()
-    tasks = getTasksByCourse(course_id)
+    tasks = getUserTasksByCourse(course_id)
     return render_template('coursePage.html',
         tasks=tasks,
         course=course,
@@ -180,6 +194,12 @@ def editCourse(course_id):
 @app.route('/courses/<int:course_id>/enroll/', methods=['POST'])
 def enrollInCourse(course_id):
     if request.method == 'POST':
+        courseTasks = session.query(Task).filter_by(course_id=course_id).all()
+        user_id = getUserID(login_session["email"])
+        # Add uncompleted tasks for this course and user
+        for task in courseTasks:
+            userTask = UserTask(user_id=user_id, course_id=course_id, task_id=task.task_id)
+            session.add(userTask)
         selectedCourse = session.query(Course).filter_by(course_id=course_id).one()
         user_id = getUserID(login_session["email"])
         newEnrollment = UserCourse(user_id=user_id, course_id=course_id)
@@ -512,7 +532,7 @@ def gdisconnect():
         return response
 
 '''
-# JSON APIs to view Restaurant Information
+# JSON API examples
 @app.route('/restaurant/<int:restaurant_id>/menu/JSON')
 def restaurantMenuJSON(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
@@ -533,9 +553,26 @@ def restaurantsJSON():
     return jsonify(restaurants=[r.serialize for r in restaurants])
 '''
 
+'''
+    Return true if a user has completed a given task in a given course
+'''
+def isComplete(task_id, course_id):
+    user_id = getUserID(login_session["email"])
+    try:
+        userTask = session.query(UserTask).filter_by(user_id=user_id, task_id=task_id, course_id=course_id).one()
+        return userTask.completed
+    except:
+        return False
+
+'''
+    Return true if the current user is logged in as an admin
+'''
 def isAdmin():
     return loggedin() and login_session["isAdmin"]
 
+'''
+    Return true if the user is currently logged in
+'''
 def loggedin():
     return "email" in login_session
 
@@ -550,6 +587,13 @@ def getCoursesByMajor(major_id):
         course = session.query(Course).filter_by(course_id=course_id).one()
         courses.append(course)
     return courses
+
+def getUserTasksByCourse(course_id):
+    tasks = session.query(Task).filter_by(course_id=course_id).all()
+    # If user is enrolled in this course...
+    for task in tasks:
+        task.complete = isComplete(task.task_id, course_id)
+    return tasks
 
 def getTasksByCourse(course_id):
     tasks = session.query(Task).filter_by(course_id=course_id).all()

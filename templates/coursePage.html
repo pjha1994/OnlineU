@@ -13,10 +13,12 @@
             <h1>{{course.name}}</h1>
             <p>{{course.description}}</p>
             {% for task in tasks %}
-                <a class="subtle" href="{{task.url}}"><div class="majorBlock">
+                <a class="subtle" href="/courses/{{course.course_id}}/tasks/{{task.task_id}}/markComplete/"><div class="majorBlock">
                     <h2>{{task.name}}</h2>
-                    {% if task.completed %}
+                    {% if task.complete %}
                         <p>Task complete!</p>
+                    {% else %}
+                        <p>Task not yet complete.</p>
                     {% endif %}
                 </div></a>
             {% endfor %}

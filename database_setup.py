@@ -54,7 +54,7 @@ class User(Base):
 '''
     Association table for individual tasks
 '''
-class UserTasks(Base):
+class UserTask(Base):
     __tablename__ = 'user_tasks'
 
     id = Column(Integer, primary_key=True)
@@ -124,7 +124,7 @@ if __name__ == "__main__":
     DBSession = sessionmaker(bind=engine)
     session = DBSession()
 
-    majors = ["Computer Science", "Paleontology", "Philosophy", "Sociology", "Accounting", 
+    majors = ["Biology", "Computer Science", "Paleontology", "Philosophy", "Sociology", "Accounting", 
     "Archaeology", "Geology", "Computer Engineering", "Computer Engineeering",
     "History", "Oceanography", "Environmental Science", "Political Science", "Chemistry",
     "Physics", "Mathematics", "Mechanical Engineering"]
@@ -146,6 +146,9 @@ if __name__ == "__main__":
         )
         session.add(newCourse)
 
+
+    admin = User(name="John Sutton", email="jdsutton@calpoly.edu", picture="https://lh4.googleusercontent.com/-C6cSzCA5-Bw/AAAAAAAAAAI/AAAAAAAACVo/OrC0MgMptnI/photo.jpg", isAdmin=True)
+    session.add(admin)
 
     session.commit()
 
