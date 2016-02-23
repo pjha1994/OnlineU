@@ -6,9 +6,9 @@ from flask import session as login_session
 import random
 import string
 import os
+from math import floor
 from OpenSSL import SSL
 
-# IMPORTS FOR THIS STEP
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
 import httplib2
@@ -43,6 +43,8 @@ def sendStaticFile(path):
 def showHomepage():
     enrolled_majors = getEnrolledMajors()
     enrolled_courses = getEnrolledCourses()
+    for course in enrolled_courses:
+        course.progress = courseProgress(course.course_id)
     return render_template('index.html', login_session=login_session, enrolled_majors=enrolled_majors, enrolled_courses=enrolled_courses)
 
 @app.route('/profile.html')
@@ -594,6 +596,14 @@ def getUserTasksByCourse(course_id):
     for task in tasks:
         task.complete = isComplete(task.task_id, course_id)
     return tasks
+
+def courseProgress(course_id):
+    tasks = getUserTasksByCourse(course_id)
+    total = 0.0;
+    for task in tasks:
+        if task.complete:
+            total += 1.0
+    return floor(total / len(tasks) * 100)
 
 def getTasksByCourse(course_id):
     tasks = session.query(Task).filter_by(course_id=course_id).all()

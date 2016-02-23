@@ -14,8 +14,9 @@
             <p>Free. Non-profit. Open-source.</p>
 
             {% if "username" in login_session %}
+            <h2>{{login_session["username"].split(" ")[0]}}'s Todo List:</h2>
             <!-- Majors -->
-            <h2>{{login_session["username"].split(" ")[0]}}'s Majors</h2>
+            <h2>{{login_session["username"].split(" ")[0]}}'s Majors:</h2>
             {% for major in enrolled_majors %}
                 <a class="subtle" href="/majors/{{major.major_id}}"><div class="majorBlock">
                 <h2>{{major.name}}</h2>
@@ -26,12 +27,12 @@
             {% endfor %}
             
             <!-- Courses -->
-            <h2>{{login_session["username"].split(" ")[0]}}'s Courses</h2>
+            <h2>{{login_session["username"].split(" ")[0]}}'s Courses:</h2>
             {% for course in enrolled_courses %}
                 <a class="subtle" href="/courses/{{course.course_id}}"><div class="majorBlock">
                 <h2>{{course.name}}</h2>
                 <p>{{course.description}}</p>
-                <p>Progress:</p>
+                <p>Progress: {{course.progress}}%</p>
                 <p>Grade:</p>
                 </div></a>
             {% endfor %}
