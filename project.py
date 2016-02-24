@@ -118,13 +118,14 @@ def deleteTask(course_id, task_id):
 '''
 @app.route('/courses/<int:course_id>/tasks/<int:task_id>/markComplete/', methods=['GET', 'POST'])
 def markTaskComplete(course_id, task_id):
-    user_id = getUserID(login_session["email"])
     task = session.query(Task).filter_by(task_id=task_id).one()
-    completion = session.query(UserTask).filter_by(user_id=user_id, course_id=course_id, task_id=task_id).one()
-    completion.completed = True
-    session.add(completion)
-    flash('%s Successfully Completed' % task.name)
-    session.commit()
+    if loggedin():
+        user_id = getUserID(login_session["email"])
+        completion = session.query(UserTask).filter_by(user_id=user_id, course_id=course_id, task_id=task_id).one()
+        completion.completed = True
+        session.add(completion)
+        flash('%s Successfully Completed' % task.name)
+        session.commit()
     return redirect(task.url)
 
 '''
@@ -650,11 +651,17 @@ def getCoursesByMajor(major_id):
         courses.append(course)
     return courses
 
+def userEnrolled(course_id, user_id):
+    if user_id is None:
+        return False
+    results = session.Query(UserCourse).filter_by(course_id=course_id, user_id=user_id)
+    return len(results) > 0
+
 def getUserTasksByCourse(course_id):
     tasks = session.query(Task).filter_by(course_id=course_id).all()
-    # If user is enrolled in this course...
-    for task in tasks:
-        task.complete = isComplete(task.task_id, course_id)
+    if loggedin() and userEnrolled(course_id, getUserID(login_session["email"])):
+        for task in tasks:
+            task.complete = isComplete(task.task_id, course_id)
     return tasks
 
 def courseProgress(course_id):
