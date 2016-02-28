@@ -3,12 +3,12 @@
 This is a website for free, curated online courses. 
 
 ## Initializing the database
-`python database_setup.py`
+`$ python database_setup.py`
 
 ## Starting the server
 * If you want the G+ login to work, you will need to create a client_secrets.json file using https://console.developers.google.com
 
-`sudo python project.py`
+`$ sudo python project.py`
 
 ## Todo:
 * Majors
