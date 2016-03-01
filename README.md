@@ -30,3 +30,8 @@ This is a website for free, curated online courses.
   * Add bug reporting
   * Issue verified certificates upon degree completion.
   * SSL/HTTPS
+ 
+
+## Contributing
+
+Contributions from anyone are welcomed and very appreciated! This is a very big project and it's going to take a lot of people to make it work. Take a look at the todo list above and the issues page for ideas on how to help.
