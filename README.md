@@ -2,6 +2,8 @@
 
 This is a website for free, curated online courses. 
 
+![site image](http://i.imgur.com/FmuC9p0.png)
+
 ## Initializing the database
 `$ python database_setup.py`
 
