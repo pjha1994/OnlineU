@@ -1,3 +1,4 @@
+*.db
 client_secrets.json
 database_setup.pyc
 project.pyc
