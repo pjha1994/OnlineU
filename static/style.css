@@ -33,64 +33,88 @@ ul li {
 footer {
     margin-left: 0px;
     margin-right: 0px;
-    background: #D3CA59;
+    height: 25px;
+    background-color: #658525;
     width: 100%;
 }
 
-footer p {
-    color: #8E8628;
-}
-
-footer li {
+footer .footer-message {
     display: inline-block;
-    vertical-align: top;
-    background-color: #FFF793;
+    margin: 0;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    padding: 0;
+    height: 100%;
 }
 
-footer li a {
+.footer-message p {
     height: 25px;
-    width: 100px;
-    color: #8E8628;
-    border: 1px solid #8E8628;
+    color: #CEF08A;
     text-decoration: none;
-    text-align:center;
+    text-align: center;
     display: table-cell;
     vertical-align: middle;
     font-family: sans-serif;
 }
 
-footer li a:hover {
-    background: #FFFABB;
+footer li {
+    display: inline-block;
+    vertical-align: top;
+}
+
+footer li a {
+    color: #E2F8B6;
+    height: 25px;
+    width: 100px;
+    text-decoration: none;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    font-family: sans-serif;
+}
+
+footer li {
+    border-right: 1px solid #E2F8B6;
+}
+
+#navbar, #navbar-box {
+    width: 100%;
+    height: 50px;
+    padding: 0;
+    margin: 0;
 }
 
 #navbar {
     list-style-type: none;
-    padding: 0px;
-    margin-top: 0px;
-    height: auto;
-    background-color: #9FC454;
-
+    background-color: #658525;
+    position: fixed;
+    top: 0;
 }
 
 #navbar li {
     display: inline-block;
+    margin: 0;
+    padding: 0;
     vertical-align: top;
-    background-color: #CEF08A;
-}
-
-#navbar li:hover {
-    background-color: #E2F8B6;
+    float: left;
 }
 
 #navbar li a {
-    height:50px;
+    height: 50px;
     width: 100px;
-    color: #658525;
-    border: 1px solid #658525;
+    color: #E2F8B6;
     text-decoration: none;
-    text-align:center;
+    text-align: center;
     display: table-cell;
     vertical-align: middle;
+}
+
+#navbar li ~ li {
+    border-left: 1px solid #E2F8B6;
+}
+
+#navbar li:last-child {
+    border-right: 1px solid #E2F8B6;
 }
 
 .expandButton {
