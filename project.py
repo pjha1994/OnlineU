@@ -121,7 +121,10 @@ def markTaskComplete(course_id, task_id):
     task = session.query(Task).filter_by(task_id=task_id).one()
     if loggedin():
         user_id = getUserID(login_session["email"])
-        completion = session.query(UserTask).filter_by(user_id=user_id, course_id=course_id, task_id=task_id).one()
+        try:
+            completion = session.query(UserTask).filter_by(user_id=user_id, course_id=course_id, task_id=task_id).one()
+        except:
+            completion = UserTask(user_id=user_id, course_id=course_id, task_id=task_id)
         completion.completed = True
         session.add(completion)
         flash('%s Successfully Completed' % task.name)

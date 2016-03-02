@@ -1,7 +1,6 @@
 *.db
 client_secrets.json
-database_setup.pyc
-project.pyc
+*.pyc
 server.crt
 server.csr
 server.key
