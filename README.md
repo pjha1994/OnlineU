@@ -25,6 +25,8 @@ This is a website for free, curated online courses.
   * Add support for multiple choice questions
   * Create server-side grading script
   * Figure out ways to prevent cheating
+    * Facial recognition
+    * Typing pattern recognition
   * Add support for randomized questions and random question selection
 * Misc
   * Add a donation page
