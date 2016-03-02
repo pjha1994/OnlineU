@@ -654,7 +654,7 @@ def getCoursesByMajor(major_id):
 def userEnrolled(course_id, user_id):
     if user_id is None:
         return False
-    results = session.Query(UserCourse).filter_by(course_id=course_id, user_id=user_id)
+    results = session.query(UserCourse).filter_by(course_id=course_id, user_id=user_id).all()
     return len(results) > 0
 
 def getUserTasksByCourse(course_id):
