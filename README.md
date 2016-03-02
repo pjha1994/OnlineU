@@ -3,12 +3,12 @@
 This is a website for free, curated online courses. 
 
 ## Initializing the database
-python database_setup.py
+`$ python database_setup.py`
 
 ## Starting the server
 * If you want the G+ login to work, you will need to create a client_secrets.json file using https://console.developers.google.com
 
-sudo python project.py
+`$ sudo python project.py`
 
 ## Todo:
 * Majors
@@ -30,3 +30,8 @@ sudo python project.py
   * Add bug reporting
   * Issue verified certificates upon degree completion.
   * SSL/HTTPS
+ 
+
+## Contributing
+
+Contributions from anyone are welcomed and very appreciated! This is a very big project and it's going to take a lot of people to make it work. Take a look at the todo list above and the issues page for ideas on how to help.
