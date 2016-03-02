@@ -7,9 +7,16 @@ This is a website for free, curated online courses.
 ## Initializing the database
 `$ python database_setup.py`
 
-## Starting the server
-* If you want the G+ login to work, you will need to create a client_secrets.json file using https://console.developers.google.com
+## Creating credentials
+1. Go to https://console.developers.google.com
+2. Create a new project
+3. Click "enable and manage APIs"
+4. Click "credentials"
+5. Create credentials --> OAuth client ID --> Web applications
+6. Add your access point to the authorized javascript origins (your public IP, 127.0.0.1, localhost, etc)
+7. Save the credentials file as `client_secrets.json` in the main directory.
 
+## Starting the server
 `$ sudo python project.py`
 
 ## Todo:
