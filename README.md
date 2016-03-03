@@ -2,6 +2,8 @@
 
 This is a website for free, curated online courses. 
 
+When the site is up (sporadically) it can be viewed at: http://47.32.148.165/
+
 ![site image](http://i.imgur.com/FmuC9p0.png)
 
 ## Initializing the database
