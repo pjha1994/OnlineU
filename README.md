@@ -14,7 +14,8 @@ This is a website for free, curated online courses.
 4. Click "credentials"
 5. Create credentials --> OAuth client ID --> Web applications
 6. Add your access point to the authorized javascript origins (your public IP, 127.0.0.1, localhost, etc)
-7. Save the credentials file as `client_secrets.json` in the main directory.
+7. Add a placeholder site under "Authorized redirect URIs", eg: http://www.example.com
+8. Save the credentials file as `client_secrets.json` in the main directory.
 
 ## Starting the server
 `$ sudo python project.py`
