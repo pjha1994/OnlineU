@@ -18,7 +18,7 @@
     <div id="signInButton">
         <span class="g-signin"
         data-scope="openid email"
-        data-clientid="905400722559-7mfi1vmhd2bo2qcltl3nck9e6sk8q5qj.apps.googleusercontent.com"
+        data-clientid="{{CLIENT_ID}}"
         data-redirecturi="postmessage"
         data-accesstype="offline"
         data-cookiepolicy="single_host_origin"
@@ -31,6 +31,7 @@
 
 <script>
 function signInCallback(authResult) {
+    console.log("HI!");
   if (authResult['code']) {
     // Hide the sign-in button now that the user is authorized
     $('#signinButton').attr('style', 'display: none');
