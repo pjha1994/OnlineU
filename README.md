@@ -25,7 +25,6 @@ This is a website for free, curated online courses.
   * Automatically enroll user in all courses for a major when the user enrolls in that major
   * Add support for optional and required minors
 * Courses
-  * Edit course tasks via admin page 
   * Show completed courses on user profile
 * Exams
   * Allow admins to edit exams online
