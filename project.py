@@ -100,6 +100,24 @@ def newTask(course_id):
     return redirect(url_for('editCourseTasks', course_id=course_id))
 
 '''
+    Update a task
+'''
+@app.route('/tasks/<int:task_id>/edit/', methods=['POST'])
+def editTask(task_id):
+    if not isAdmin():
+        return
+    editedTask = session.query(Task).filter_by(task_id=task_id).one()
+    if request.method == 'POST':
+        if request.form['name']:
+            editedTask.name = request.form['name']
+        if request.form['url']:
+            editedTask.url = request.form['url']
+        flash('Task Successfully Edited: %s' % editedTask.name)
+        session.add(editedTask)
+        session.commit()
+        return redirect(url_for('editCourseTasks', course_id=editedTask.course_id))
+
+'''
     Delete a task
 '''
 @app.route('/courses/<int:course_id>/tasks/<int:task_id>/delete/', methods=['POST'])

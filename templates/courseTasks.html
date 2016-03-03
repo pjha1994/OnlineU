@@ -14,8 +14,13 @@
             <div>
             {% for task in tasks %}
                 <div class="majorBlock">
-                    <h2>{{task.name}}</h2>
-                    <p>{{task.url}}</p>
+                    <form id="form{{task.task_id}}" action="/tasks/{{task.task_id}}/edit/", method="post">
+                        Task name:<br>
+                        <input size="50" type="text" value="{{task.name}}" name="name"><br>
+                        Task URL:<br>
+                        <input size="50" type="text" value="{{task.url}}" name="url"><br>
+                        <input type="submit" value="Update" method="post">
+                    </form>
                     <form action="/courses/{{course.course_id}}/tasks/{{task.task_id}}/delete/", method="post">
                         <input class="dangerButton" type="submit" value="Delete" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this task?');">
                     </form>
