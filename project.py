@@ -44,19 +44,36 @@ def showHomepage():
     enrolled_majors = getEnrolledMajors()
     enrolled_courses = getEnrolledCourses()
     unfinished_tasks = getTopUnfinishedTasks()
+    courses = []
     for course in enrolled_courses:
-        course.progress = courseProgress(course.course_id)
+        progress = courseProgress(course.course_id)
+        if progress < 100:
+            course.progress = progress
+            courses.append(course)
     return render_template('index.html',
         login_session=login_session,
         enrolled_majors=enrolled_majors,
-        enrolled_courses=enrolled_courses,
+        enrolled_courses=courses,
         unfinished_tasks=unfinished_tasks)
 
 @app.route('/profile.html')
 def showProfile():
     enrolled_majors = getEnrolledMajors()
     enrolled_courses = getEnrolledCourses()
-    return render_template('profile.html', login_session=login_session, enrolled_majors=enrolled_majors, enrolled_courses=enrolled_courses)
+    incomplete_courses = []
+    complete_courses = []
+    for course in enrolled_courses:
+        progress = courseProgress(course.course_id)
+        if progress < 100:
+            course.progress = progress
+            incomplete_courses.append(course)
+        else:
+            complete_courses.append(course)
+    return render_template('profile.html',
+        login_session=login_session,
+        enrolled_majors=enrolled_majors,
+        complete_courses=complete_courses,
+        incomplete_courses=incomplete_courses)
 
 @app.route('/volunteer.html')
 def showVolunteerPage():

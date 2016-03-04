@@ -12,7 +12,7 @@
             <h1>{{login_session["username"]}}'s Profile</h1>
             <img src="{{login_session['picture']}}" width=128></img>
             <h2>Enrolled Courses</h2>
-                {% for course in enrolled_courses %}
+                {% for course in incomplete_courses %}
                     <div class="majorBlock">
                     <h2>{{course.name}}</h2>
                     <p>{{course.description}}</p>
@@ -28,6 +28,13 @@
                     </div>
                 {% endfor %}
             <h2>Completed Courses</h2>
+                {% for course in complete_courses %}
+                    <div class="majorBlock">
+                    <h2>{{course.name}}</h2>
+                    <p>{{course.description}}</p>
+                    <p>Grade:</p>
+                    </div>
+                {% endfor %}
 
             <h2>Completed Majors</h2>
 
