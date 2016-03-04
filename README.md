@@ -6,6 +6,12 @@ When the site is up (sporadically) it can be viewed at: http://47.32.148.165/
 
 ![site image](http://i.imgur.com/FmuC9p0.png)
 
+## Dependencies
+* Python 2.x
+* [Flask](http://flask.pocoo.org/)
+* [SQLAlchemy](http://www.sqlalchemy.org/)
+
+
 ## Initializing the database
 `$ python database_setup.py`
 
