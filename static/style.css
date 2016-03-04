@@ -31,65 +31,36 @@ ul li {
 }
 
 footer {
-    position: relative;
-    margin-left: 0px;
-    margin-right: 0px;
-    height: 25px;
-    background-color: #396339;
-    width: 100%;
-}
-
-footer .footer-message {
-    display: inline-block;
     margin: 0;
     padding: 0;
-    top: 0;
-    left: 0;
-    height: 100%;
+    background-color: #658525;
     width: 100%;
-    position: absolute;
-    text-align: center;
+    height: auto;
 }
 
-.footer-message p {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: 0;
-    padding: 0;
+footer p {
     line-height: 25px;
-    height: 25px;
-    width: 100%;
-    color: #CEF08A;
-    text-decoration: none;
+    margin: 0;
     text-align: center;
-    font-family: sans-serif;
-}
-
-footer li {
-    display: inline-block;
-    vertical-align: top;
-}
-
-footer li a {
     color: #E2F8B6;
-    height: 25px;
-    width: 100px;
-    text-decoration: none;
-    text-align: center;
-    display: table-cell;
-    vertical-align: middle;
-    font-family: sans-serif;
+    display: inline-block;
+    padding-left: 1em;
 }
 
-footer li {
+footer a {
+    float: left;
+    line-height: 25px;
+    text-decoration: none;
+    font-family: sans-serif;
+    width: 100px;
+    text-align: center;
+    display: inline-block;
+    color: #E2F8B6;
+}
+
+footer :not(:last-child) {
     border-right: 1px solid #E2F8B6;
 }
-
-footer li:hover {
-    background-color: #558555;
-}
-
 
 #navbar, #navbar-box {
     width: 100%;
@@ -100,7 +71,7 @@ footer li:hover {
 
 #navbar {
     list-style-type: none;
-    background-color: #396339;
+    background-color: #658525;
     position: fixed;
     top: 0;
 }
@@ -111,10 +82,6 @@ footer li:hover {
     padding: 0;
     vertical-align: top;
     float: left;
-}
-
-#navbar li:hover {
-    background-color: #558555;
 }
 
 #navbar li a {
