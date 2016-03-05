@@ -704,6 +704,8 @@ def getUserTasksByCourse(course_id):
 
 def courseProgress(course_id):
     tasks = getUserTasksByCourse(course_id)
+    if len(tasks) == 0:
+        return 0
     total = 0.0;
     for task in tasks:
         if task.complete:
