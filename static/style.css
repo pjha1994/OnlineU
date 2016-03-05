@@ -33,7 +33,7 @@ ul li {
 footer {
     margin: 0;
     padding: 0;
-    background-color: #658525;
+    background-color: #415C41;
     width: 100%;
     height: auto;
 }
@@ -71,7 +71,7 @@ footer :not(:last-child) {
 
 #navbar {
     list-style-type: none;
-    background-color: #658525;
+    background-color: #415C41;
     position: fixed;
     top: 0;
 }
