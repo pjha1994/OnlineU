@@ -56,6 +56,11 @@ def showHomepage():
         enrolled_courses=courses,
         unfinished_tasks=unfinished_tasks)
 
+@app.route("/donate.html")
+def showDonationPage():
+    return render_template("donation.html",
+        login_session=login_session)
+
 @app.route('/profile.html')
 def showProfile():
     enrolled_majors = getEnrolledMajors()

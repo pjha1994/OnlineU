@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="shortcut icon" href="/css/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/css/favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <!-- Navbar -->
+        {% block content %}
+        {% include "navbar.html" %}
+
+        <!-- About -->
+        <div>
+            <h1>Donations</h1>
+            <p style="width:600px;">We are a non-profit that provides content and serivices for free. As such, we are reliant upon our generous donors to keep our servers running. If you have found this site useful, please consider making a donation. Thank you.</p>
+        </div>
+        {% include "footer.html" %}
+        {% endblock %}
+    </body>
+</html>
