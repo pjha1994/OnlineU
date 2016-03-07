@@ -46,7 +46,7 @@ When the site is up (sporadically) it can be viewed at: http://47.32.148.165/
     * Typing pattern recognition
   * Add support for randomized questions and random question selection
 * Misc
-  * Add a donation page
+  * Add donation button
   * Add application form for volunteer content curators
   * Add bug reporting
   * Issue verified certificates upon degree completion.
