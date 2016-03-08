@@ -19,8 +19,8 @@ import requests
 app = Flask(__name__)
 app._static_folder = "~/Desktop/onlineU/static"
 
-HOST = '0.0.0.0'
-PORT = 80
+HOST = "127.0.0.1" # '0.0.0.0'
+PORT = 8080 # 80
 
 CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
