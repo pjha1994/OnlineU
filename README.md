@@ -32,9 +32,7 @@ When the site is up (sporadically) it can be viewed at: http://47.32.148.165/
 
 ## Todo:
 * Phase 1: Curriculum functionality
-  * Automatically enroll user in all courses for a major when the user enrolls in that major
   * Add support for optional and required minors
-  * Show completed courses on user profile
 * Phase 2: Exams, quizzes, programming challenges, and grading
   * Create programming environment and challenge framework
     * Find/create compilers to convert Python and Java code to JavaScript
