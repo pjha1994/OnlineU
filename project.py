@@ -385,6 +385,13 @@ def enrollInMajor(major_id):
         newEnrollment = UserMajor(user_id=user_id, major_id=major_id)
         session.add(newEnrollment)
         session.commit()
+
+        # Enroll in courses
+        courses = getCoursesByMajor(major_id)
+        for course in courses:
+            enrollInCourse(course.course_id)
+
+        flash('You have enrolled in %s' % selectedMajor.name)
         return redirect(url_for('showMajorsPublic'))
 
 '''
@@ -398,6 +405,7 @@ def unenrollFromMajor(major_id):
         enrollment = session.query(UserMajor).filter_by(major_id=major_id, user_id=user_id).all()[0]
         session.delete(enrollment)
         session.commit()
+        flash('You have unenrolled from %s' % selectedMajor.name)
         return redirect(url_for('showMajorsPublic'))
 
 '''
@@ -727,10 +735,15 @@ def userEnrolled(course_id, user_id):
     return len(results) > 0
 
 def getUserTasksByCourse(course_id):
-    tasks = session.query(Task).filter_by(course_id=course_id).all()
-    if loggedin() and userEnrolled(course_id, getUserID(login_session["email"])):
-        for task in tasks:
-            task.complete = isComplete(task.task_id, course_id)
+    if not loggedin():
+        return []
+    user_id = getUserID(login_session["email"])
+    tasks = session.query(UserTask).filter_by(user_id=user_id, course_id=course_id).all()
+    for userTask in tasks:
+        task = session.query(Task).filter_by(task_id=userTask.task_id).one()
+        userTask.name = task.name
+        userTask.url = task.url
+
     return tasks
 
 def courseProgress(course_id):
@@ -739,7 +752,7 @@ def courseProgress(course_id):
         return 0
     total = 0.0;
     for task in tasks:
-        if task.complete:
+        if task.completed:
             total += 1.0
     return floor(total / len(tasks) * 100)
 
@@ -757,7 +770,7 @@ def getTopUnfinishedTasks():
         courseTasks = getUserTasksByCourse(course.course_id)
         for i in range(len(courseTasks)):
             task = courseTasks[i]
-            if not task.complete:
+            if not task.completed:
                 tasks.append(task)
                 break
     return tasks
