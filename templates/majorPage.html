@@ -17,6 +17,7 @@
             {% for course in courses %}
                 <a class="subtle" href="/courses/{{course.course_id}}"><div class="majorBlock">
                     <h2>{{course.name}}</h2>
+                    <p>{{course.description}}</p>
                 </div></a>
             {% endfor %}
         </div>
