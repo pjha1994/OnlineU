@@ -17,7 +17,7 @@
             <h1>{{major.name}}</h1>
             <p>{{major.description}}</p>
             {% for course in courses %}
-                {{ majorCard(course, false, false, false, false) }}
+                {{ courseCard(course, false, false, false, false) }}
             {% endfor %}
         </div>
         {% include "footer.html" %}
