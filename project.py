@@ -339,7 +339,10 @@ def newMajor():
 @app.route('/majors.html')
 def showMajors():
     majors = session.query(Major).order_by(asc(Major.name))
-    return render_template('majors.html', majors=majors, login_session=login_session)
+    return render_template('majors.html',
+        majors=majors,
+        login_session=login_session
+    )
 
 '''
     Update a major

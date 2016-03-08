@@ -17,7 +17,7 @@
             <img src="{{login_session['picture']}}" width=128></img>
             <h2>Enrolled Courses</h2>
                 {% for course in incomplete_courses %}
-                    {{ majorCard(course, true, true, false, false) }}
+                    {{ courseCard(course, true, true, false, false) }}
                 {% endfor %}
             <h2>Enrolled Majors</h2>
                 {% for major in incomplete_majors %}
@@ -25,7 +25,7 @@
                 {% endfor %}
             <h2>Completed Courses</h2>
                 {% for course in complete_courses %}
-                    {{ majorCard(course, false, true, false, false) }}
+                    {{ courseCard(course, false, true, false, false) }}
                 {% endfor %}
 
             <h2>Completed Majors</h2>

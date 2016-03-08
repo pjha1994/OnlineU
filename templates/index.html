@@ -1,4 +1,6 @@
 {% from "macros.html" import majorCard with context %}
+{% from "macros.html" import courseCard with context %}
+
 
 <!DOCTYPE html>
 <html>
@@ -45,7 +47,7 @@
             <!-- Courses -->
             <h2>{{login_session["username"].split(" ")[0]}}'s Courses:</h2>
             {% for course in enrolled_courses %}
-                {{ majorCard(course, true, true, false, false) }}
+                {{ courseCard(course, true, true, false, false) }}
             {% endfor %}
 
             {% else %}

@@ -1,4 +1,4 @@
-{% from "macros.html" import majorCard with context %}
+{% from "macros.html" import courseCard with context %}
 
 <!DOCTYPE html>
 <html>
@@ -15,7 +15,7 @@
         <div>
             <h1>Courses</h1>
             {% for course in courses %}
-                {{ majorCard(course, false, false, true, false) }}
+                {{ courseCard(course, false, false, true, false) }}
             {% endfor %}
             {% endblock %}
         </div>
