@@ -1,3 +1,5 @@
+{% from "macros.html" import majorCard with context %}
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,22 +15,7 @@
         <div>
             <h1>Courses</h1>
             {% for course in courses %}
-                <a class="subtle" href="/courses/{{course.course_id}}"><div class="majorBlock">
-                    <h2>{{course.name}}</h2>
-                    <p>{{course.description}}</p>
-                    {% if "email" in login_session %}
-                    {% if course in enrolled_courses %}
-                    <p><font size="5" color="#000">&#10003;</font>You are enrolled in this course</p>
-                    <form action="/courses/{{course.course_id}}/unenroll/", method="post">
-                        <input class="enrollButton" type="submit" value="Unenroll" onclick="return confirm('Are you sure you want to UNENROLL from this course? You will lose all progress.');">
-                    </form>
-                    {% else %}
-                    <form action="/courses/{{course.course_id}}/enroll/", method="post">
-                        <input class="enrollButton" type="submit" value="Enroll">
-                    </form>
-                    {% endif %}
-                    {% endif %}
-                </div></a>
+                {{ majorCard(course, false, false, true, false) }}
             {% endfor %}
             {% endblock %}
         </div>

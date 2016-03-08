@@ -1,3 +1,5 @@
+{% from "macros.html" import majorCard with context %}
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,10 +17,7 @@
             <h1>{{major.name}}</h1>
             <p>{{major.description}}</p>
             {% for course in courses %}
-                <a class="subtle" href="/courses/{{course.course_id}}"><div class="majorBlock">
-                    <h2>{{course.name}}</h2>
-                    <p>{{course.description}}</p>
-                </div></a>
+                {{ majorCard(course, false, false, false, false) }}
             {% endfor %}
         </div>
         {% include "footer.html" %}

@@ -13,7 +13,7 @@
         <div>
             <h1>Users</h1>
             {% for user in users %}
-            <div class="majorBlock">
+            <div class="taskBlock">
                 <h2>{{user.name}}</h2>
                 <p>{{user.email}}</p>
                 <form action="/users/{{user.user_id}}/update/" method="post">
