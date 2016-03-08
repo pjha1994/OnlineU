@@ -773,7 +773,16 @@ def getEnrolledMajors():
     enrolled_majors = []
     for association in associations:
         major_id = association.major_id
+        # Compute major progress
+        courses = session.query(MajorCourse).filter_by(major_id=major_id).all()
+        progress = 0.0
+        if len(courses) > 0:
+            for course in courses:
+                progress += courseProgress(course.course_id) / 100.0
+            progress /= len(courses)
+
         major = session.query(Major).filter_by(major_id=major_id).one()
+        major.progress = progress * 100.0
         enrolled_majors.append(major)
     return enrolled_majors
 
