@@ -169,7 +169,7 @@ def markTaskComplete(course_id, task_id):
         session.add(completion)
         flash('%s Successfully Completed' % task.name)
         session.commit()
-    return redirect(task.url)
+    return redirect("#")
 
 '''
     Edit a course's tasks

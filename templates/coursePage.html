@@ -15,14 +15,20 @@
             <h1>{{course.name}}</h1>
             <p>{{course.description}}</p>
             {% for task in tasks %}
-                <a class="subtle" href="/courses/{{course.course_id}}/tasks/{{task.task_id}}/markComplete/"><div class="majorBlock">
-                    <h2>{{task.name}}</h2>
-                    {% if task.complete %}
-                        <p>Task complete!</p>
-                    {% else %}
-                        <p>Task not yet complete.</p>
-                    {% endif %}
-                </div></a>
+                <div class="majorBlock">
+                <h2>{{task.name}}</h2>
+                {% if task.complete %}
+                    <p>Task complete!</p>
+                {% else %}
+                    <p>Task not yet complete.</p>
+                {% endif %}
+                <form action="/courses/{{task.course_id}}/tasks/{{task.task_id}}/markComplete/", method="post">
+                    <input class="enrollButton" type="submit" value="Mark Complete">
+                </form>
+                <form action="{{task.url}}", method="post">
+                    <input class="enrollButton" type="submit" value="View Content">
+                </form>
+            </div>
             {% endfor %}
         </div>
         {% include "footer.html" %}
