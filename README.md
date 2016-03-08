@@ -31,12 +31,13 @@ When the site is up (sporadically) it can be viewed at: http://47.32.148.165/
 `$ sudo python project.py`
 
 ## Todo:
-* Majors
+* Phase 1: Curriculum functionality
   * Automatically enroll user in all courses for a major when the user enrolls in that major
   * Add support for optional and required minors
-* Courses
   * Show completed courses on user profile
-* Exams
+* Phase 2: Exams, quizzes, programming challenges, and grading
+  * Create programming environment and challenge framework
+    * Find/create compilers to convert Python and Java code to JavaScript
   * Allow admins to edit exams online
   * Add suport for math expressions
   * Add support for multiple choice questions
@@ -45,7 +46,7 @@ When the site is up (sporadically) it can be viewed at: http://47.32.148.165/
     * Facial recognition
     * Typing pattern recognition
   * Add support for randomized questions and random question selection
-* Misc
+* Phase 3: Deployment
   * Add donation button
   * Add application form for volunteer content curators
   * Add bug reporting
