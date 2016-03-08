@@ -142,12 +142,18 @@ if __name__ == "__main__":
     session.add(admin)
 
     # Add courses
+    # 1
     algorithms = Course(name="Introduction to Algorithms",
         description="Learn about algorithms: the tools used by computer scientists to solve problems.")
     session.add(algorithms)
+    # 2
     csmath = Course(name="Mathematics for Computer Science",
         description="Learn the mathematical foundation for computer science.")
     session.add(csmath)
+    rel = MajorCourse(major_id=2, course_id=2)
+    session.add(rel)
+    rel = MajorCourse(major_id=2, course_id=1)
+    session.add(rel)
 
     # Add tasks
     task = Task(course_id=1,
