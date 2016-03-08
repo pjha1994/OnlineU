@@ -148,7 +148,7 @@ if __name__ == "__main__":
     session.add(algorithms)
     # 2
     csmath = Course(name="Mathematics for Computer Science",
-        description="Learn the mathematical foundation for computer science.")
+        description="Learn the mathematical foundations for computer science.")
     session.add(csmath)
     rel = MajorCourse(major_id=2, course_id=2)
     session.add(rel)

@@ -132,14 +132,14 @@ footer :not(:last-child) {
     border-radius: 10px;
     padding: 10px;
     padding-bottom: 25px;
-    background-color: #6CBB93;
-    border: 2px solid #1C643F;
+    background-color: #5E7E5E;
+    border: 2px solid #243F24;
     width: 500px;
     min-height: 100px;
 }
 
 .majorBlock:hover {
-    background: #A5E0C2;
+    background: #82A082;
 }
 
 .majorBlock h2 {
@@ -148,7 +148,7 @@ footer :not(:last-child) {
 }
 
 .majorBlock p {
-    color: #DFFAEC;
+    color: #E2F8B6;
     margin-bottom: 0px;
 }
 
