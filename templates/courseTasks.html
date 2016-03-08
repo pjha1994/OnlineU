@@ -15,7 +15,7 @@
             <h2>Tasks:</h2>
             <div>
             {% for task in tasks %}
-                <div class="majorBlock">
+                <div class="taskBlock">
                     <form id="form{{task.task_id}}" action="/tasks/{{task.task_id}}/edit/", method="post">
                         Task name:<br>
                         <input size="50" type="text" value="{{task.name}}" name="name"><br>

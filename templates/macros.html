@@ -1,0 +1,33 @@
+{% macro majorCard(course, showProgress, showGrade, showUI, showAdmin) %}
+    <div class="majorBlock">
+        <a class="subtle" href="/courses/{{course.course_id}}">
+            <h2>{{ course.name }}</h2>
+            <p>{{ course.description }}</p>
+            {% if showGrade %}
+                <p>Grade:</p>
+            {% endif %}
+            {% if showProgress %}
+                <p>Progress: {{ course.progress }}%</p>
+            {% endif %}
+            {% if "email" in login_session %}
+                {% if showUI %}
+                    {% if course in enrolled_courses %}
+                        <p><font size="5" color="#000">&#10003;</font>You are enrolled in this course</p>
+                        <form action="/courses/{{course.course_id}}/unenroll/" method="post">
+                            <input class="enrollButton" type="submit" value="Unenroll" onclick="return confirm('Are you sure you want to UNENROLL from this course? You will lose all progress.');">
+                        </form>
+                    {% else %}
+                        <form action="/courses/{{course.course_id}}/enroll/" method="post">
+                            <input class="enrollButton" type="submit" value="Enroll">
+                        </form>
+                    {% endif %}
+                {% endif %}
+                {% if showAdmin %}
+                    <form action="/majors/{{major.major_id}}/delete/" method="post">
+                        <input class="dangerButton" type="submit" value="Delete" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this major?');">
+                    </form>
+                {% endif %}
+            {% endif %}
+        </a>
+    </div>
+{% endmacro %}

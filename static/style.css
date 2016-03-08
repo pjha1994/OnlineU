@@ -131,11 +131,14 @@ footer :not(:last-child) {
 
 .majorBlock {
     border-radius: 10px;
-    padding: 10px;
-    padding-bottom: 25px;
     background-color: #5E7E5E;
     border: 2px solid #243F24;
     width: 500px;
+}
+
+.majorBlock > a {
+    display: block;
+    padding: 10px;
     min-height: 100px;
 }
 
@@ -153,6 +156,31 @@ footer :not(:last-child) {
     margin-bottom: 0px;
 }
 
+.majorBlock form {
+    display: block;
+    min-height: 40px;
+}
+
+.taskBlock {
+    border-radius: 10px;
+    padding: 10px;
+    padding-bottom: 25px;
+    background-color: #5E7E5E;
+    border: 2px solid #243F24;
+    width: 500px;
+    min-height: 100px;
+}
+
+.taskBlock h2 {
+    margin: 0px;
+    color: #000;
+}
+
+.taskBlock p {
+    color: #E2F8B6;
+    margin-bottom: 0px;
+}
+
 .subtle {
     text-decoration: none;
     color: #000000;
@@ -164,6 +192,8 @@ footer :not(:last-child) {
     border: 2px solid #1C643F;
     margin-left: 10px;
     min-height: 40px;
+    width: 75px;
+    display: inline-block;
 }
 
 .enrollButton:hover {

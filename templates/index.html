@@ -1,3 +1,5 @@
+{% from "macros.html" import majorCard with context %}
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,7 +20,7 @@
             {% if "username" in login_session %}
             <h2>{{login_session["username"].split(" ")[0]}}'s Todo List:</h2>
             {% for task in unfinished_tasks %}
-            <div class="majorBlock">
+            <div class="taskBlock">
                 <h2>{{task.name}}</h2>
                 {% if task.complete %}
                     <p>Task complete <font size="5" color="#000">&#10003;</font></p>
@@ -37,23 +39,13 @@
             <!-- Majors -->
             <h2>{{login_session["username"].split(" ")[0]}}'s Majors:</h2>
             {% for major in enrolled_majors %}
-                <a class="subtle" href="/majors/{{major.major_id}}"><div class="majorBlock">
-                <h2>{{major.name}}</h2>
-                <p>{{major.description}}</p>
-                <p>Progress: {{major.progress}}%</p>
-                <p>Grade:</p>
-                </div></a>
+                {{ majorCard(major, true, true, false, false) }}
             {% endfor %}
             
             <!-- Courses -->
             <h2>{{login_session["username"].split(" ")[0]}}'s Courses:</h2>
             {% for course in enrolled_courses %}
-                <a class="subtle" href="/courses/{{course.course_id}}"><div class="majorBlock">
-                <h2>{{course.name}}</h2>
-                <p>{{course.description}}</p>
-                <p>Progress: {{course.progress}}%</p>
-                <p>Grade:</p>
-                </div></a>
+                {{ majorCard(course, true, true, false, false) }}
             {% endfor %}
 
             {% else %}

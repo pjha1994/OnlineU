@@ -1,3 +1,5 @@
+{% from "macros.html" import majorCard with context %}
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,24 +16,7 @@
             <h1>Courses</h1>
             <div>
             {% for course in courses %}
-                <a class="subtle" href="/courses/{{course.course_id}}/editTasks"><div class="majorBlock">
-                    <h2>{{course.name}}</h2>
-                    <p>{{course.description}}</p>
-                    <!--
-                    <form id="form{{course.course_id}}" action="/courses/{{course.course_id}}/edit/", method="post">
-                        Course name:<br>
-                        <input type="text" value="{{course.name}}" name="name"><br>
-                        Course description:<br>
-                        <textarea name="description">{{course.description}}</textarea><br>
-                        Course URL:<br>
-                        <input type="text" value="{{course.url}}" name="url"><br>
-                        <input type="submit" value="Update" method="post">
-                    </form>
-                    -->
-                    <form action="/courses/{{course.course_id}}/delete/", method="post">
-                        <input class="dangerButton" type="submit" value="Delete" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this course?');">
-                    </form>
-                </div></a>
+                {{ majorCard(course, false, false, false, true) }}
             {% endfor %}
             {% endblock %}
             </div>
