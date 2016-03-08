@@ -192,7 +192,6 @@ footer :not(:last-child) {
     border: 2px solid #1C643F;
     margin-left: 10px;
     min-height: 40px;
-    width: 75px;
     display: inline-block;
 }
 
