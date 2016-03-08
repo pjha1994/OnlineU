@@ -67,6 +67,8 @@ def showProfile():
     enrolled_courses = getEnrolledCourses()
     incomplete_courses = []
     complete_courses = []
+    incomplete_majors = []
+    complete_majors = []
     for course in enrolled_courses:
         progress = courseProgress(course.course_id)
         if progress < 100:
@@ -74,9 +76,16 @@ def showProfile():
             incomplete_courses.append(course)
         else:
             complete_courses.append(course)
+    for major in enrolled_majors:
+        progress = majorProgress(major.major_id)
+        if progress < 100:
+            incomplete_majors.append(major)
+        else:
+            complete_majors.append(major)
     return render_template('profile.html',
         login_session=login_session,
-        enrolled_majors=enrolled_majors,
+        incomplete_majors=incomplete_majors,
+        complete_majors=complete_majors,
         complete_courses=complete_courses,
         incomplete_courses=incomplete_courses)
 
@@ -765,6 +774,15 @@ def getEnrolledCourses():
         enrolled_courses.append(course)
     return enrolled_courses
 
+def majorProgress(major_id):
+    courses = session.query(MajorCourse).filter_by(major_id=major_id).all()
+    progress = 0.0
+    if len(courses) > 0:
+        for course in courses:
+            progress += courseProgress(course.course_id) / 100.0
+        progress /= len(courses)
+    return progress
+
 def getEnrolledMajors():
     if not loggedin():
         return []
@@ -774,13 +792,7 @@ def getEnrolledMajors():
     for association in associations:
         major_id = association.major_id
         # Compute major progress
-        courses = session.query(MajorCourse).filter_by(major_id=major_id).all()
-        progress = 0.0
-        if len(courses) > 0:
-            for course in courses:
-                progress += courseProgress(course.course_id) / 100.0
-            progress /= len(courses)
-
+        progress = majorProgress(major_id)
         major = session.query(Major).filter_by(major_id=major_id).one()
         major.progress = progress * 100.0
         enrolled_majors.append(major)
