@@ -169,7 +169,24 @@ def markTaskComplete(course_id, task_id):
         session.add(completion)
         flash('%s Successfully Completed' % task.name)
         session.commit()
-    return redirect("#")
+    return redirect(redirect_url())
+'''
+    Mark a task as complete
+'''
+@app.route('/courses/<int:course_id>/tasks/<int:task_id>/markIncomplete/', methods=['GET', 'POST'])
+def markTaskIncomplete(course_id, task_id):
+    task = session.query(Task).filter_by(task_id=task_id).one()
+    if loggedin():
+        user_id = getUserID(login_session["email"])
+        try:
+            completion = session.query(UserTask).filter_by(user_id=user_id, course_id=course_id, task_id=task_id).one()
+        except:
+            completion = UserTask(user_id=user_id, course_id=course_id, task_id=task_id)
+        completion.completed = False
+        session.add(completion)
+        flash('%s marked as incomplete' % task.name)
+        session.commit()
+    return redirect(redirect_url())
 
 '''
     Edit a course's tasks
@@ -770,6 +787,11 @@ def getUserID(email):
         return user.user_id
     except:
         return None
+
+def redirect_url(default='index'):
+    return request.args.get('next') or \
+           request.referrer or \
+           url_for(default)
 
 if __name__ == '__main__':
     app.secret_key = 'P0HROJGcAoglvmXBtwjLC69v'

@@ -18,12 +18,17 @@
                 <div class="majorBlock">
                 <h2>{{task.name}}</h2>
                 {% if task.complete %}
-                    <p>Task complete!</p>
+                    <p>Task complete <font size="5" color="#000">&#10003;</font></p>
                 {% else %}
                     <p>Task not yet complete.</p>
                 {% endif %}
+                {% if task.complete %}
+                <form action="/courses/{{task.course_id}}/tasks/{{task.task_id}}/markIncomplete/", method="post">
+                    <input class="enrollButton" type="submit" value="Mark Incomplete">
+                {% else %}
                 <form action="/courses/{{task.course_id}}/tasks/{{task.task_id}}/markComplete/", method="post">
                     <input class="enrollButton" type="submit" value="Mark Complete">
+                {% endif %}
                 </form>
                 <form action="{{task.url}}", method="post">
                     <input class="enrollButton" type="submit" value="View Content">
