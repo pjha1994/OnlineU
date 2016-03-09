@@ -155,7 +155,7 @@ if __name__ == "__main__":
     for url in coursesToAdd:
         course = scraper.main([url])
         print "Creating course: " + course.title
-        c = Course(name=course.title, description="")
+        c = Course(name=course.title, description=course.description)
         session.add(c)
         rel = MajorCourse(major_id=2, course_id=course_id)
         session.add(rel)

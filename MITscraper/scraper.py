@@ -6,8 +6,9 @@ import re
 URL = "http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-042j-mathematics-for-computer-science-fall-2010/index.htm"
 
 class Course():
-    def __init__(self, title, url, instructors, cal, assignments, lec):
+    def __init__(self, title, description, url, instructors, cal, assignments, lec):
         self.title = title
+        self.description = description
         self.url = url
         self.instructors = instructors
         self.calendar = cal
@@ -76,6 +77,7 @@ def main(args):
     title = tree.xpath('//h1/text()')[0]
 
     instructors = tree.xpath('//p[@class="ins"]/text()')
+    description = tree.xpath('//div[@id="description"]/div/p/text()')[0]
 
     # Load calendar
     page = loadPage(calendar(URL))
@@ -141,7 +143,7 @@ def main(args):
             result.append([t, link])
 
     # Compile everything together
-    course = Course(title, URL, instructors, cal, c, result)
+    course = Course(title, description, URL, instructors, cal, c, result)
     return course
 
 
