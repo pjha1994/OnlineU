@@ -1,6 +1,7 @@
 import sys
 import urllib2
 from lxml import html, etree
+import re
 
 URL = "http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-042j-mathematics-for-computer-science-fall-2010/index.htm"
 
@@ -51,7 +52,10 @@ def assignments(url):
     return url.replace("/index.htm", "/assignments")
 
 def lectures(url):
-    return url.replace("/index.htm", "/video-lectures")
+    return re.sub("/index.*", "/video-lectures", url)
+
+def lectures2(url):
+    return re.sub("/index.*", "/lecture-videos", url)
 
 def loadPage(url):
     #print "Loading " + url
@@ -60,6 +64,9 @@ def loadPage(url):
     return response.read()
 
 def main(args):
+    if len(args) > 0:
+        URL = args[0]
+
     # Load the main coursepage
     page = loadPage(URL)
 
@@ -112,7 +119,14 @@ def main(args):
         c.append(crow)
 
     # Load lectures
-    page = loadPage(lectures(URL))
+    try:
+        page = loadPage(lectures(URL))
+    except urllib2.HTTPError:
+        try:
+            page = loadPage(lectures2(URL))
+        except urllib2.HTTPError:
+            print "Could not load: " + lectures(URL)
+            sys.exit()
     tree = html.fromstring(page)
     ls = tree.xpath('//div[@class="medialisting"]')
 
@@ -121,11 +135,14 @@ def main(args):
     for lecture in ls:
         link = lecture[0].attrib['href']
         t = lecture[0].attrib['title']
-        result.append([t, link])
+        if link.startswith("/"):
+            result.append([t, "http://ocw.mit.edu" + link])
+        else:
+            result.append([t, link])
 
     # Compile everything together
     course = Course(title, URL, instructors, cal, c, result)
-    print course
+    return course
 
 
 if __name__ == "__main__":

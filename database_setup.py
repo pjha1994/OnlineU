@@ -3,6 +3,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+import sys
+sys.path.insert(0, "./MITscraper")
+import scraper
 
 Base = declarative_base()
 
@@ -142,117 +145,27 @@ if __name__ == "__main__":
     session.add(admin)
 
     # Add courses
-    # 1
-    algorithms = Course(name="Introduction to Algorithms",
-        description="Learn about algorithms: the tools used by computer scientists to solve problems.")
-    session.add(algorithms)
-    # 2
-    csmath = Course(name="Mathematics for Computer Science",
-        description="Learn the mathematical foundations for computer science.")
-    session.add(csmath)
-    rel = MajorCourse(major_id=2, course_id=2)
-    session.add(rel)
-    rel = MajorCourse(major_id=2, course_id=1)
-    session.add(rel)
+    coursesToAdd = ["http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-042j-mathematics-for-computer-science-fall-2010/index.htm",
+        "http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/index.htm",
+        "http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-design-and-analysis-of-algorithms-spring-2015/"
+    ]
 
-    # Add tasks
-    task = Task(course_id=1,
-        name="Lecture 1: Algorithmic Thinking, Peak Finding",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-1-algorithmic-thinking-peak-finding")
-    session.add(task)
-    task = Task(course_id=1,
-        name="Lecture 2: Models of Computation, Document Distance",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-2-models-of-computation-document-distance")
-    session.add(task)
-    task = Task(course_id=1,
-        name="Lecture 3: Insertion Sort, Merge Sort",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-3-insertion-sort-merge-sort")
-    session.add(task)
-    task = Task(course_id=1,
-        name="Lecture 4: Heaps and Heap Sort",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-4-heaps-and-heap-sort")
-    session.add(task)
-    task = Task(course_id=1,
-        name="Lecture 5: Binary Search Trees, BST Sort",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-5-binary-search-trees-bst-sort")
-    session.add(task)
-    task = Task(course_id=1,
-        name="Lecture 6: AVL Trees, AVL Sort",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-6-avl-trees-avl-sort")
-    session.add(task)
-    task = Task(course_id=1,
-        name="Lecture 7: Counting Sort, Radix Sort, Lower Bounds for Sorting",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-7-counting-sort-radix-sort-lower-bounds-for-sorting")
-    session.add(task)
-    task = Task(course_id=1,
-        name="Lecture 8: Hashing with Chaining",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-8-hashing-with-chaining")
-    session.add(task)
-    task = Task(course_id=1,
-        name="Lecture 9: Table Doubling, Karp-Rabin",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-9-table-doubling-karp-rabin")
-    session.add(task)
-    task = Task(course_id=1,
-        name="Lecture 10: Open Addressing, Cryptographic Hashing",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-10-open-addressing-cryptographic-hashing")
-    session.add(task)
-    task = Task(course_id=1,
-        name="Lecture 11: Integer Arithmetic, Karatsuba Multiplication",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-11-integer-arithmetic-karatsuba-multiplication")
-    session.add(task)
-    task = Task(course_id=1,
-        name="Lecture 12: Square Roots, Newton's Method",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-12-square-roots-newtons-method")
-    session.add(task)
-    task = Task(course_id=1,
-        name="Lecture 13: Breadth-First Search (BFS)",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-13-breadth-first-search-bfs")
-    session.add(task)
-    task = Task(course_id=1,
-        name="Lecture 14: Depth-First Search (DFS), Topological Sort",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-14-depth-first-search-dfs-topological-sort")
-    session.add(task)
-    task = Task(course_id=1,
-        name="Lecture 15: Single-Source Shortest Paths Problem",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-15-single-source-shortest-paths-problem")
-    session.add(task)
-    task = Task(course_id=1,
-        name="Lecture 16: Dijkstra",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-16-dijkstra")
-    session.add(task)
-    task = Task(course_id=1,
-        name="Lecture 17: Bellman-Ford",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-17-bellman-ford")
-    session.add(task)
-    task = Task(course_id=1,
-        name="Lecture 18: Speeding up Dijkstra",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-18-speeding-up-dijkstra")
-    session.add(task)
-    task = Task(course_id=1,
-        name="Lecture 19: Dynamic Programming I: Fibonacci, Shortest Paths",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-19-dynamic-programming-i-fibonacci-shortest-paths")
-    session.add(task)
-    task = Task(course_id=1,
-        name="Lecture 20: Dynamic Programming II: Text Justification, Blackjack",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-20-dynamic-programming-ii-text-justification-blackjack")
-    session.add(task)
-    task = Task(course_id=1,
-        name="Lecture 21: Dynamic Programming III: Parenthesization, Edit Distance, Knapsack",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-21-dp-iii-parenthesization-edit-distance-knapsack")
-    session.add(task)
-    task = Task(course_id=1,
-        name="Lecture 22: Dynamic Programming IV: Guitar Fingering, Tetris, Super Mario Bros.",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-22-dp-iv-guitar-fingering-tetris-super-mario-bros")
-    session.add(task)
-    task = Task(course_id=1,
-        name="Lecture 23: Computational Complexity",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-23-computational-complexity")
-    session.add(task)
-    task = Task(course_id=1,
-        name="Lecture 24: Topics in Algorithms Research",
-        url="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/lecture-24-topics-in-algorithms-research")
-    session.add(task)
-
+    major_id = majors.index("Computer Science") + 1
+    course_id = 1
+    for url in coursesToAdd:
+        course = scraper.main([url])
+        print "Creating course: " + course.title
+        c = Course(name=course.title, description="")
+        session.add(c)
+        rel = MajorCourse(major_id=2, course_id=course_id)
+        session.add(rel)
+        for lecture in course.lectures:
+            task = Task(course_id=course_id,
+                name=lecture[0],
+                url=lecture[1]
+            )
+            session.add(task)
+        course_id += 1
 
     session.commit()
 
