@@ -6,7 +6,7 @@ This is a website for free, curated online courses.
 
 When the site is up (sporadically) it can be viewed at: http://47.32.148.165/
 
-![site image](http://i.imgur.com/k0FGyCb.png)
+![site image](http://i.imgur.com/VFW8CRS.png)
 
 ## Dependencies
 * Python 2.x
