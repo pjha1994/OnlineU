@@ -134,6 +134,7 @@ footer :not(:last-child) {
     background-color: #5E7E5E;
     border: 2px solid #243F24;
     width: 500px;
+    padding: 10px;
 }
 
 .majorBlock > a {
