@@ -240,7 +240,7 @@ def showCourses():
 def viewCourse(course_id):
     course = session.query(Course).filter_by(course_id=course_id).one()
     course.enrolled = loggedin() and userEnrolled(course_id, getUserID(login_session["email"]))
-    tasks = getUserTasksByCourse(course_id)
+    tasks = getUserTasksByCourse(course_id, course.enrolled)
     return render_template('coursePage.html',
         tasks=tasks,
         course=course,
@@ -738,8 +738,8 @@ def userEnrolled(course_id, user_id):
     results = session.query(UserCourse).filter_by(course_id=course_id, user_id=user_id).all()
     return len(results) > 0
 
-def getUserTasksByCourse(course_id):
-    if not loggedin():
+def getUserTasksByCourse(course_id, enrolled=True):
+    if not loggedin() or not enrolled:
         return session.query(Task).filter_by(course_id=course_id).all()
     user_id = getUserID(login_session["email"])
     tasks = session.query(UserTask).filter_by(user_id=user_id, course_id=course_id).all()
