@@ -14,7 +14,7 @@
                     {% if major in enrolled_majors %}
                         <p><font size="5" color="#000">&#10003;</font>You are enrolled in this major</p>
                         <form action="/majors/{{major.major_id}}/unenroll/" method="post">
-                            <input class="enrollButton" type="submit" value="Unenroll" onclick="return confirm('Are you sure you want to UNENROLL from this major?');">
+                            <input class="enrollButton" type="submit" value="Unenroll" onclick="return confirm('Are you sure you want to UNENROLL from this major? You will lose all progress.');">
                         </form>
                     {% else %}
                         <form action="/majors/{{major.major_id}}/enroll/" method="post">

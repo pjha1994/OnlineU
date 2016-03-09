@@ -409,6 +409,12 @@ def unenrollFromMajor(major_id):
         enrollment = session.query(UserMajor).filter_by(major_id=major_id, user_id=user_id).all()[0]
         session.delete(enrollment)
         session.commit()
+
+        # Uenroll from courses
+        courses = getCoursesByMajor(major_id)
+        for course in courses:
+            unenrollInCourse(course.course_id)
+
         flash('You have unenrolled from %s' % selectedMajor.name)
         return redirect(url_for('showMajorsPublic'))
 
