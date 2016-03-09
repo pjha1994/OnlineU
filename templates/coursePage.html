@@ -22,17 +22,19 @@
                 {% else %}
                     <p>Task not yet complete.</p>
                 {% endif %}
-                {% if task.completed %}
-                <form action="/courses/{{task.course_id}}/tasks/{{task.task_id}}/markIncomplete/", method="post">
-                    <input class="enrollButton" type="submit" value="Mark Incomplete">
-                {% else %}
-                <form action="/courses/{{task.course_id}}/tasks/{{task.task_id}}/markComplete/", method="post">
-                    <input class="enrollButton" type="submit" value="Mark Complete">
-                {% endif %}
-                </form>
-                <form action="{{task.url}}", method="post">
-                    <input class="enrollButton" type="submit" value="View Content">
-                </form>
+                <div class="task-controls">
+                    {% if task.completed %}
+                    <form action="/courses/{{task.course_id}}/tasks/{{task.task_id}}/markIncomplete/", method="post">
+                        <input class="enrollButton" type="submit" value="Mark Incomplete">
+                    {% else %}
+                    <form action="/courses/{{task.course_id}}/tasks/{{task.task_id}}/markComplete/", method="post">
+                        <input class="enrollButton" type="submit" value="Mark Complete">
+                    {% endif %}
+                    </form>
+                    <form action="{{task.url}}", method="post">
+                        <input class="enrollButton" type="submit" value="View Content">
+                    </form>
+                </div>
             </div>
             {% endfor %}
         </div>

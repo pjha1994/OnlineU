@@ -157,14 +157,12 @@ footer :not(:last-child) {
 }
 
 .majorBlock form {
-    display: block;
     min-height: 40px;
 }
 
 .taskBlock {
     border-radius: 10px;
     padding: 10px;
-    padding-bottom: 25px;
     background-color: #5E7E5E;
     border: 2px solid #243F24;
     width: 500px;
@@ -181,6 +179,12 @@ footer :not(:last-child) {
     margin-bottom: 0px;
 }
 
+.task-controls {
+    margin: 0;
+    padding: 0;
+    min-height: 40px;
+}
+
 .subtle {
     text-decoration: none;
     color: #000000;
@@ -192,6 +196,7 @@ footer :not(:last-child) {
     border: 2px solid #402900;
     margin-left: 10px;
     min-height: 40px;
+    min-width: 75px;
     display: inline-block;
 }
 
