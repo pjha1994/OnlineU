@@ -188,13 +188,13 @@ footer :not(:last-child) {
 
 .enrollButton {
     float: right;
-    background: #A5E0C2;
-    border: 2px solid #1C643F;
+    background: #B68F49;
+    border: 2px solid #402900;
     margin-left: 10px;
     min-height: 40px;
     display: inline-block;
 }
 
 .enrollButton:hover {
-    background: #DFFAEC;
+    background: #E3C083;
 }
