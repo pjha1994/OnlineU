@@ -147,14 +147,14 @@ if __name__ == "__main__":
     # Add courses
     coursesToAdd = ["http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-042j-mathematics-for-computer-science-fall-2010/index.htm",
         "http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/index.htm",
-        "http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-design-and-analysis-of-algorithms-spring-2015/"
+        "http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-design-and-analysis-of-algorithms-spring-2015/index.htm"
     ]
 
     major_id = majors.index("Computer Science") + 1
     course_id = 1
     for url in coursesToAdd:
+        print "Creating course"
         course = scraper.main([url])
-        print "Creating course: " + course.title
         c = Course(name=course.title, description=course.description)
         session.add(c)
         rel = MajorCourse(major_id=2, course_id=course_id)

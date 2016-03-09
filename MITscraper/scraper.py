@@ -47,16 +47,16 @@ class Course():
         pass
 
 def calendar(url):
-    return url.replace("/index.htm", "/calendar")
+    return url.replace("index.htm", "calendar")
 
 def assignments(url):
-    return url.replace("/index.htm", "/assignments")
-
-def lectures(url):
-    return re.sub("/index.*", "/video-lectures", url)
+    return url.replace("index.htm", "assignments")
 
 def lectures2(url):
-    return re.sub("/index.*", "/lecture-videos", url)
+    return re.sub("index.*", "video-lectures", url)
+
+def lectures(url):
+    return re.sub("index.*", "lecture-videos", url)
 
 def loadPage(url):
     #print "Loading " + url
@@ -75,6 +75,7 @@ def main(args):
     #print "Scraping page"
     tree = html.fromstring(page)
     title = tree.xpath('//h1/text()')[0]
+    print "  " + title
 
     instructors = tree.xpath('//p[@class="ins"]/text()')
     description = tree.xpath('//div[@id="description"]/div/p/text()')[0]
@@ -123,14 +124,20 @@ def main(args):
     # Load lectures
     try:
         page = loadPage(lectures(URL))
-    except urllib2.HTTPError:
+        tree = html.fromstring(page)
+        ls = tree.xpath('//div[@class="medialisting"]')
+    except:
+        print "  Could not load: " + lectures(URL)
         try:
             page = loadPage(lectures2(URL))
-        except urllib2.HTTPError:
-            print "Could not load: " + lectures(URL)
-            sys.exit()
-    tree = html.fromstring(page)
-    ls = tree.xpath('//div[@class="medialisting"]')
+            print "  Loaded alternative page"
+            tree = html.fromstring(page)
+            ls = tree.xpath('//div[@class="medialisting"]')
+        except:
+            print "  Could not load: " + lectures2(URL)
+            print "  Failed to load lectures page"
+            ls = []
+    print "  Lectures found: " + str(len(ls))
 
     # Parse lectures
     result = []
