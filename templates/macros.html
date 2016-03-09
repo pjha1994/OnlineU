@@ -59,6 +59,10 @@
                     {% endif %}
                 {% endif %}
                 {% if showAdmin %}
+                    <form action="/courses/{{course.course_id}}/editTasks" method="get">
+                        <input class="enrollButton" type="submit" value="Edit">
+                    </form>
+
                     <form action="/courses/{{course.course_id}}/delete/" method="post">
                         <input class="dangerButton" type="submit" value="Delete" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this course?');">
                     </form>
