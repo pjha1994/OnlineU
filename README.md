@@ -2,7 +2,13 @@
 
 [![Join the chat at https://gitter.im/jdsutton/OnlineU](https://badges.gitter.im/jdsutton/OnlineU.svg)](https://gitter.im/jdsutton/OnlineU?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-This is a website for free, curated online courses. 
+This is a website for free, curated online courses.
+
+How it's unique:
+* It is 100% free. There will be no charge to earn certificates.
+* It's long-term goal is to offer comprehensive college-level curriculum for a wide variety of topics.
+* Courses will be graded and allow students to go back and improve their grades.
+* Courses are grouped by major and ordered coherently, instead of a grab-bag.
 
 When the site is up (sporadically) it can be viewed at: http://47.32.148.165/
 
