@@ -16,8 +16,8 @@ import json
 from flask import make_response
 import requests
 
-app = Flask(__name__)
-app._static_folder = "~/Desktop/onlineU/static"
+app = Flask(__name__, static_url_path="/static")
+#app._static_folder = "~/Desktop/onlineU/static"
 
 HOST = "127.0.0.1" # '0.0.0.0'
 PORT = 8080 # 80
@@ -34,7 +34,7 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-@app.route("/css/<path:path>")
+@app.route("/static/<path:path>")
 def sendStaticFile(path):
     return send_from_directory("static", path)
 
@@ -59,6 +59,11 @@ def showHomepage():
 @app.route("/donate.html")
 def showDonationPage():
     return render_template("donation.html",
+        login_session=login_session)
+
+@app.route("/examBuilder.html")
+def showExamBuilderPage():
+    return render_template("examBuilder.html",
         login_session=login_session)
 
 @app.route('/profile.html')
