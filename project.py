@@ -671,6 +671,7 @@ def gdisconnect():
         del login_session['username']
         del login_session['email']
         del login_session['picture']
+        del login_session['isAdmin']
         #response = make_response(json.dumps('Successfully disconnected.'), 200)
         #response.headers['Content-Type'] = 'application/json'
         response = "<p>Disconnected successfully. Redirecting...</p>"
@@ -682,6 +683,7 @@ def gdisconnect():
         del login_session['username']
         del login_session['email']
         del login_session['picture']
+        del login_session['isAdmin']
         response = make_response(json.dumps('Failed to revoke token for given user.', 400))
         response.headers['Content-Type'] = 'application/json'
         return response

@@ -3,6 +3,9 @@
 **/
 
 function randomValue(a, b) {
+    /**
+        Returns a random integer on the interval [a, b)
+    **/
     a = a || 0;
     b = b || 100;
 
