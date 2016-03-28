@@ -2,6 +2,25 @@
     This library contains functions for converting markdown to HTML
 **/
 
+function randomValue(a, b) {
+    a = a || 0;
+    b = b || 100;
+
+    return Math.floor(Math.random() * (b - a) + a);
+}
+
+function variableIndex(string) {
+    /**
+        Returns a list of all indices of variables in a given string
+    **/
+    var re = /{[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]}/;
+    var result = re.exec(string);
+    if (result) {
+        return result.index;
+    }
+    return -1;
+}
+
 function htmlify(source, target) {
     /**
         Get text from source
@@ -14,10 +33,10 @@ function htmlify(source, target) {
     var markdown = source.value;
     var html = "";
     var lines = markdown.split("\n");
+    var variables = {}
 
     // Compile to html
-    var line;
-    var hCount;
+    var line, hCount, index, varName, value;
     for (var i = 0; i < lines.length; i++) {
         line = lines[i];
         line = line.trim();
@@ -33,6 +52,27 @@ function htmlify(source, target) {
             html = html + line;
             html = html + "</h" + hCount + ">";
             continue;
+        }
+
+        // Check for variables
+        while (true) {
+            index = variableIndex(line);
+            
+            if (index < 0) {
+                break;
+            }
+            if (index > -1) {
+                varName = line[index + 1];
+                if (varName in variables) {
+                    value = variables[varName];
+                }
+                else {
+                    value = randomValue();
+                    variables[varName] = value;
+                }
+
+                line = line.substr(0, index) + "<strong>" + value + "</strong>" + line.substr(index + 3, line.length);
+            }
         }
 
         // Paragraph
