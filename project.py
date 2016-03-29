@@ -61,6 +61,25 @@ def showDonationPage():
     return render_template("donation.html",
         login_session=login_session)
 
+@app.route('/exams/new', methods=['POST'])
+def newExam():
+    if not isAdmin():
+        return
+    if request.method == 'POST':
+        newExam = Exam(exam_title=request.form["title"])
+        session.add(newExam)
+        flash("New exam %s successfully created" % newExam.exam_title)
+        session.commit()
+    return redirect(url_for("showExamsPage"))
+
+@app.route("/examList.html")
+def showExamsPage():
+    exams = session.query(Exam).all()
+    print exams
+    return render_template("examList.html",
+        exams=exams,
+        login_session=login_session)
+
 @app.route("/examBuilder.html")
 def showExamBuilderPage():
     return render_template("examBuilder.html",

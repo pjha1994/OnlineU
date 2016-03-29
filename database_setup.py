@@ -11,6 +11,17 @@ Base = declarative_base()
 
 DATABASE_NAME = "main_database.db"
 
+class Exam(Base):
+    __tablename__ = "exams"
+    exam_id = Column(Integer, primary_key=True)
+    exam_title = Column(String(250))
+
+class ExamQuestion(Base):
+    __tablename__ = "exam_questions"
+    question_id = Column(Integer, primary_key=True)
+    exam_id = Column(Integer, ForeignKey('exams.exam_id'), nullable=False)
+    answer = Column(String(250))
+
 '''
     Association table for courses in majors
 '''
@@ -61,9 +72,9 @@ class UserTask(Base):
     __tablename__ = 'user_tasks'
 
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, nullable=False)
-    course_id = Column(Integer, nullable=False)
-    task_id = Column(Integer, nullable=False)
+    user_id = Column(Integer, ForeignKey('users.user_id'), nullable=False)
+    course_id = Column(Integer,ForeignKey('courses.course_id'), nullable=False)
+    task_id = Column(Integer, ForeignKey('tasks.task_id'), nullable=False)
     grade = Column(Float)
     completed = Column(Boolean, default=False)
 

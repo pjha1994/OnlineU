@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/css/style.css">
+        <link rel="shortcut icon" href="/static/css/favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <!-- Navbar -->
+        {% block content %}
+        {% include "navbar.html" %}
+
+        <div>
+            <!-- Your HTML here -->
+            {% for exam in exams %}
+                <h2>{{exam.exam_title}}</h2>
+            {% endfor %}
+        </div>
+
+        <div>
+            <h2>Create new exam</h2>
+            <form action="/exams/new" method="POST">
+                <p>Exam title:</p>
+                <input type="text" name="title"><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        
+        {% include "footer.html" %}
+        {% endblock %}
+    </body>
+</html>
