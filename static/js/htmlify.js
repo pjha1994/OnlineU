@@ -10,11 +10,12 @@ function randomValue(a, b) {
     b = b || 100;
 
     return Math.floor(Math.random() * (b - a) + a);
-}
+};
 
 function variableIndex(string) {
     /**
-        Returns a list of all indices of variables in a given string
+        Returns the first index of a variable in a string, if present
+        Returns -1 otherwise
     **/
     var re = /{[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]}/;
     var result = re.exec(string);
@@ -22,7 +23,16 @@ function variableIndex(string) {
         return result.index;
     }
     return -1;
-}
+};
+
+function isChoice(string) {
+    /**
+        Returns true if the string is a multiple choice option
+    **/
+    var re = /^[0-9]*\)/;
+    var result = re.exec(string);
+    return result;
+};
 
 function htmlify(source, target) {
     /**
@@ -54,6 +64,14 @@ function htmlify(source, target) {
             html = html + "<h" + hCount + ">";
             html = html + line;
             html = html + "</h" + hCount + ">";
+            continue;
+        }
+
+        // Choice for multiple choice option
+        if (isChoice(line)) {
+            index = line.indexOf(")") + 1;
+            value = line.substr(index, line.length);
+            html = html + "<input type='radio'><p style='display:inline-block;'>" + value + "</p></input><br>"
             continue;
         }
 
