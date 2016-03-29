@@ -44,12 +44,12 @@ function htmlify(source, target) {
     target = target || source;
 
     var markdown = source.value;
-    var html = "";
+    var html = "<form action=''>";
     var lines = markdown.split("\n");
     var variables = {}
 
     // Compile to html
-    var line, hCount, index, varName, value;
+    var line, hCount, index, varName, value, number;
     for (var i = 0; i < lines.length; i++) {
         line = lines[i];
         line = line.trim();
@@ -70,8 +70,9 @@ function htmlify(source, target) {
         // Choice for multiple choice option
         if (isChoice(line)) {
             index = line.indexOf(")") + 1;
+            number = line[index - 2];
             value = line.substr(index, line.length);
-            html = html + "<input type='radio'><p style='display:inline-block;'>" + value + "</p></input><br>"
+            html = html + "<input type='radio' name='answer' value='" + number + "'><p style='display:inline-block;'>" + value + "</p><br>"
             continue;
         }
 
@@ -99,8 +100,12 @@ function htmlify(source, target) {
         // Paragraph
         html = html + "<p>" + line + "</p>";
 
+        // End form
+        html = html + "</form>"
+
     }
 
+    // Insert compiled HTML into target element
     target.innerHTML = html;
 };
 
