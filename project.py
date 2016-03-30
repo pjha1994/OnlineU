@@ -1,3 +1,7 @@
+'''
+    This file contains code for running the server
+'''
+
 from flask import Flask, render_template, request, redirect, jsonify, url_for, flash, send_from_directory
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
@@ -729,10 +733,10 @@ def restaurantsJSON():
     return jsonify(restaurants=[r.serialize for r in restaurants])
 '''
 
-'''
-    Return true if a user has completed a given task in a given course
-'''
 def isComplete(task_id, course_id):
+    '''
+        Returns true if a user has completed a given task in a given course
+    '''
     user_id = getUserID(login_session["email"])
     try:
         userTask = session.query(UserTask).filter_by(user_id=user_id, task_id=task_id, course_id=course_id).one()
@@ -740,16 +744,16 @@ def isComplete(task_id, course_id):
     except:
         return False
 
-'''
-    Return true if the current user is logged in as an admin
-'''
 def isAdmin():
+    '''
+        Returns true if the current user is logged in as an admin
+    '''
     return loggedin() and login_session["isAdmin"]
 
-'''
-    Return true if the user is currently logged in
-'''
 def loggedin():
+    '''
+        Returns true if the user is currently logged in
+    '''
     return "email" in login_session
 
 def getTask(task_id):
@@ -793,10 +797,16 @@ def courseProgress(course_id):
     return floor(total / len(tasks) * 100)
 
 def getTasksByCourse(course_id):
+    '''
+        Returns a list of tasks for a given course id
+    '''
     tasks = session.query(Task).filter_by(course_id=course_id).all()
     return tasks
 
 def getTopUnfinishedTasks():
+    '''
+        Returns a list of the next unfininished tasks for each enrolled course
+    '''
     if not loggedin():
         return []
     tasks = []
@@ -812,6 +822,9 @@ def getTopUnfinishedTasks():
     return tasks
 
 def getEnrolledCourses():
+    '''
+        Returns a list of the courses enrolled in by the current user
+    '''
     if not loggedin():
         return []
     user_id = getUserID(login_session["email"])
@@ -824,6 +837,9 @@ def getEnrolledCourses():
     return enrolled_courses
 
 def majorProgress(major_id):
+    '''
+        Returns the user's progress in a given major as a number between 0 and 1
+    '''
     courses = session.query(MajorCourse).filter_by(major_id=major_id).all()
     progress = 0.0
     if len(courses) > 0:
@@ -833,6 +849,9 @@ def majorProgress(major_id):
     return progress
 
 def getEnrolledMajors():
+    '''
+        Returns a list of the majors that the current user is enrolled in
+    '''
     if not loggedin():
         return []
     user_id = getUserID(login_session["email"])
@@ -852,6 +871,9 @@ def getUserInfo(user_id):
     return user
 
 def getUserID(email):
+    '''
+        Returns the user ID associated with an email
+    '''
     try:
         user=session.query(User).filter_by(email=email).one()
         return user.user_id
