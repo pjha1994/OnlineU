@@ -81,7 +81,9 @@ def getAllCoursePages():
     for link in links:
         href = link.attrib["href"]
         if href.startswith("/courses"):
-            pages.append(MAIN_PAGE + href)
+            href = MAIN_PAGE + href
+            if not href in pages:
+                pages.append(href)
     return pages
 
 
@@ -96,10 +98,13 @@ def main(args):
     #print "Scraping page"
     tree = html.fromstring(page)
     title = tree.xpath('//h1/text()')[0]
-    print "  " + title
+    #print "  " + title
 
     instructors = tree.xpath('//p[@class="ins"]/text()')
-    description = tree.xpath('//div[@id="description"]/div/p/text()')[0]
+    try:
+        description = tree.xpath('//div[@id="description"]/div/p/text()')[0]
+    except:
+        description = ""
 
     cal = []
     try:
@@ -115,9 +120,7 @@ def main(args):
                 crow.append(element.text)
             try:
                 crow[0] = int(crow[0])
-            except TypeError:
-                continue
-            except ValueError:
+            except:
                 continue
             cal.append(crow)
     except urllib2.HTTPError:
@@ -140,9 +143,7 @@ def main(args):
                         crow.append(sub.attrib['href'])
             try:
                 crow[0] = int(crow[0])
-            except TypeError:
-                continue
-            except ValueError:
+            except:
                 continue
             c.append(crow)
     except urllib2.HTTPError:
@@ -154,17 +155,17 @@ def main(args):
         tree = html.fromstring(page)
         ls = tree.xpath('//div[@class="medialisting"]')
     except:
-        print "  Could not load: " + lectures(URL)
+        #print "  Could not load: " + lectures(URL)
         try:
             page = loadPage(lectures2(URL))
-            print "  Loaded alternative page"
+            #print "  Loaded alternative page"
             tree = html.fromstring(page)
             ls = tree.xpath('//div[@class="medialisting"]')
         except:
-            print "  Could not load: " + lectures2(URL)
-            print "  Failed to load lectures page"
+            #print "  Could not load: " + lectures2(URL)
+            #print "  Failed to load lectures page"
             ls = []
-    print "  Lectures found: " + str(len(ls))
+    #print "  Lectures found: " + str(len(ls))
 
     # Parse lectures
     result = []
