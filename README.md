@@ -9,6 +9,7 @@ How it's unique:
 * It's long-term goal is to offer comprehensive college-level curriculum for a wide variety of topics.
 * Courses will be graded and allow students to go back and improve their grades.
 * Courses are grouped by major and ordered coherently, instead of a grab-bag.
+* It tracks student progress and will offer automatically graded exams, adding a layer of usefulness to sites like [MIT OCW](http://ocw.mit.edu/index.htm) which have good content but lack these features.
 
 When the site is up (sporadically) it can be viewed at: http://47.32.148.165/
 
