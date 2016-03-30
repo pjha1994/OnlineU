@@ -160,6 +160,8 @@ if __name__ == "__main__":
         "http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/index.htm",
         "http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-design-and-analysis-of-algorithms-spring-2015/index.htm"
     ]
+    allCourses = scraper.getAllCoursePages()
+    coursesToAdd.append(allCourses[0])
 
     major_id = majors.index("Computer Science") + 1
     course_id = 1

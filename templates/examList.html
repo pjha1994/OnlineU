@@ -1,3 +1,5 @@
+{% from "macros.html" import examCard with context %}
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,7 +14,7 @@
         <div>
             <!-- Your HTML here -->
             {% for exam in exams %}
-                <h2>{{exam.exam_title}}</h2>
+                {{ examCard(exam, "/exams/" ~exam.exam_id ~ "/edit", "/exams/" ~ exam.exam_id ~ "/delete") }}
             {% endfor %}
         </div>
 

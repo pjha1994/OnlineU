@@ -3,7 +3,9 @@ import urllib2
 from lxml import html, etree
 import re
 
+MAIN_PAGE = "http://ocw.mit.edu"
 URL = "http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-042j-mathematics-for-computer-science-fall-2010/index.htm"
+COURSES_PAGE = "http://ocw.mit.edu/courses/"
 
 class Course():
     def __init__(self, title, description, url, instructors, cal, assignments, lec):
@@ -46,23 +48,42 @@ class Course():
     def getSchedule():
         pass
 
+def cleanURL(url):
+    url = re.sub("index.*", "", url)
+    if not url.endswith("/"):
+        url = url + "/"
+
+    return url
+
 def calendar(url):
-    return url.replace("index.htm", "calendar")
+    return cleanURL(url) + "calendar"
 
 def assignments(url):
-    return url.replace("index.htm", "assignments")
+    return cleanURL(url) + "assignments"
 
 def lectures2(url):
-    return re.sub("index.*", "video-lectures", url)
+    return cleanURL(url) + "video-lectures"
 
 def lectures(url):
-    return re.sub("index.*", "lecture-videos", url)
+    return cleanURL(url) + "lecture-videos"
 
 def loadPage(url):
     #print "Loading " + url
     request = urllib2.Request(url)
     response = urllib2.urlopen(request)
     return response.read()
+
+def getAllCoursePages():
+    page = loadPage(COURSES_PAGE)
+    tree = html.fromstring(page)
+    links = tree.xpath('//a[@class="preview"]')
+    pages = []
+    for link in links:
+        href = link.attrib["href"]
+        if href.startswith("/courses"):
+            pages.append(MAIN_PAGE + href)
+    return pages
+
 
 def main(args):
     if len(args) > 0:
@@ -80,46 +101,52 @@ def main(args):
     instructors = tree.xpath('//p[@class="ins"]/text()')
     description = tree.xpath('//div[@id="description"]/div/p/text()')[0]
 
-    # Load calendar
-    page = loadPage(calendar(URL))
-    tree = html.fromstring(page)
-    rows = tree.xpath('//tr')
-
-    # Parse calendar
     cal = []
-    for row in rows:
-        crow = []
-        for element in row:
-            crow.append(element.text)
-        try:
-            crow[0] = int(crow[0])
-        except TypeError:
-            continue
-        except ValueError:
-            continue
-        cal.append(crow)
+    try:
+        # Load calendar
+        page = loadPage(calendar(URL))
+        tree = html.fromstring(page)
+        rows = tree.xpath('//tr')
 
-    # Load assignments
-    page = loadPage(assignments(URL))
-    tree = html.fromstring(page)
-    rows = tree.xpath('//tr')
+        # Parse calendar
+        for row in rows:
+            crow = []
+            for element in row:
+                crow.append(element.text)
+            try:
+                crow[0] = int(crow[0])
+            except TypeError:
+                continue
+            except ValueError:
+                continue
+            cal.append(crow)
+    except urllib2.HTTPError:
+        pass
 
-    # Parse assignments
     c = []
-    for row in rows:
-        crow = []
-        for element in row:
-            crow.append(element.text)
-            for sub in element:
-                if sub.tag == "a":
-                    crow.append(sub.attrib['href'])
-        try:
-            crow[0] = int(crow[0])
-        except TypeError:
-            continue
-        except ValueError:
-            continue
-        c.append(crow)
+    try:
+        # Load assignments
+        page = loadPage(assignments(URL))
+        tree = html.fromstring(page)
+        rows = tree.xpath('//tr')
+
+        # Parse assignments
+        for row in rows:
+            crow = []
+            for element in row:
+                crow.append(element.text)
+                for sub in element:
+                    if sub.tag == "a":
+                        crow.append(sub.attrib['href'])
+            try:
+                crow[0] = int(crow[0])
+            except TypeError:
+                continue
+            except ValueError:
+                continue
+            c.append(crow)
+    except urllib2.HTTPError:
+        pass
 
     # Load lectures
     try:

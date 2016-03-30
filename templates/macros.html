@@ -37,6 +37,20 @@
     </div>
 {% endmacro %}
 
+{% macro examCard(exam, editAction, deleteAction) %}
+    <div class="majorBlock">
+        <h2>{{ exam.exam_title }}</h2>
+        <form action={{editAction}} method="get">
+            <input class="enrollButton" type="submit" value="Edit">
+        </form>
+
+        <form action="" method="post">
+            <input class="dangerButton" type="submit" value="Delete" onclick="return confirm('Are you sure you want to PERMANENTLY DELETE this exam?');">
+        </form>
+    </div>
+
+{% endmacro %}
+
 {% macro courseCard(course, showProgress, showGrade, showUI, showAdmin) %}
     <div class="majorBlock">
         <a class="subtle" href="/courses/{{course.course_id}}">
