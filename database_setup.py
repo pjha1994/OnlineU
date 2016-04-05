@@ -157,7 +157,8 @@ if __name__ == "__main__":
 
     # Add courses
     print "Locating course pages"
-    coursesToAdd = scraper.getAllCoursePages()
+    page = "http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/"
+    coursesToAdd = scraper.getAllCoursePages(page)
 
     print "Locating course lecture videos"
     major_id = majors.index("Computer Science") + 1
@@ -179,5 +180,4 @@ if __name__ == "__main__":
             session.add(task)
         course_id += 1
 
-    session.commit()
-
+        session.commit()

@@ -73,8 +73,8 @@ def loadPage(url):
     response = urllib2.urlopen(request)
     return response.read()
 
-def getAllCoursePages():
-    page = loadPage(COURSES_PAGE)
+def getAllCoursePages(basePage=COURSES_PAGE):
+    page = loadPage(basePage)
     tree = html.fromstring(page)
     links = tree.xpath('//a[@class="preview"]')
     pages = []
@@ -100,7 +100,10 @@ def main(args):
     title = tree.xpath('//h1/text()')[0]
     #print "  " + title
 
-    instructors = tree.xpath('//p[@class="ins"]/text()')
+    try:
+        instructors = tree.xpath('//p[@class="ins"]/text()')
+    except:
+        instructors = ""
     try:
         description = tree.xpath('//div[@id="description"]/div/p/text()')[0]
     except:

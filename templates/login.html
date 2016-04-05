@@ -14,18 +14,27 @@
         {% include "navbar.html" %}
         {% endblock %}
 
-    <h1>Login</h1>
-    <!-- GOOGLE PLUS SIGN IN-->
-    <div id="signInButton">
-        <span class="g-signin"
-        data-scope="openid email"
-        data-clientid="{{CLIENT_ID}}"
-        data-redirecturi="postmessage"
-        data-accesstype="offline"
-        data-cookiepolicy="single_host_origin"
-        data-callback="signInCallback"
-        data-approvalprompt="force">
-        </span>
+    <div>
+        <h1>Login</h1>
+        <p>Login to:</p>
+        <ul>
+            <li>Enroll in majors and courses</li>
+            <li>Track your progress</li>
+            <li>Complete exams and receive a grade</li>
+            <li>Earn certificates</li>
+        </ul>
+        <!-- GOOGLE PLUS SIGN IN-->
+        <div id="signInButton">
+            <span class="g-signin"
+            data-scope="openid email"
+            data-clientid="{{CLIENT_ID}}"
+            data-redirecturi="postmessage"
+            data-accesstype="offline"
+            data-cookiepolicy="single_host_origin"
+            data-callback="signInCallback"
+            data-approvalprompt="force">
+            </span>
+        </div>
     </div>
 
 <div id="result"></div>

@@ -307,7 +307,6 @@ def enrollInCourse(course_id):
             userTask = UserTask(user_id=user_id, course_id=course_id, task_id=task.task_id)
             session.add(userTask)
         selectedCourse = session.query(Course).filter_by(course_id=course_id).one()
-        user_id = getUserID(login_session["email"])
         newEnrollment = UserCourse(user_id=user_id, course_id=course_id)
         session.add(newEnrollment)
         session.commit()
