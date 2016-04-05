@@ -11,8 +11,6 @@ How it's unique:
 * Courses are grouped by major and ordered coherently, instead of a grab-bag.
 * It tracks student progress and will offer automatically graded exams, adding a layer of usefulness to sites like [MIT OCW](http://ocw.mit.edu/index.htm) which have good content but lack these features.
 
-When the site is up (sporadically) it can be viewed at: http://47.32.148.165/
-
 ![site image](http://i.imgur.com/VFW8CRS.png)
 
 ## Dependencies
