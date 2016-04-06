@@ -132,6 +132,38 @@ class Major(Base):
 engine = create_engine('sqlite:///' + DATABASE_NAME)
 Base.metadata.create_all(engine)
 
+def addCourses(page, session=None):
+    if session is None:
+        Base.metadata.bind = engine
+        DBSession = sessionmaker(bind=engine)
+        session = DBSession()
+
+    print "Locating course pages"
+    coursesToAdd = scraper.getAllCoursePages(page)
+
+    print "Locating course lecture videos"
+    #major_id = majors.index("Computer Science") + 1
+    course_id = 1
+    for url in coursesToAdd:
+        course = scraper.main([url])
+        if len(course.lectures) == 0:
+            continue
+        print "Creating course: " + course.title
+        c = Course(name=course.title, description=course.description)
+        session.add(c)
+        #rel = MajorCourse(major_id=2, course_id=course_id)
+        #session.add(rel)
+        for lecture in course.lectures:
+            task = Task(course_id=course_id,
+                name=lecture[0],
+                url=lecture[1]
+            )
+            session.add(task)
+        course_id += 1
+
+        session.commit()
+
+
 if __name__ == "__main__":
 
     Base.metadata.bind = engine
@@ -156,28 +188,5 @@ if __name__ == "__main__":
     session.add(admin)
 
     # Add courses
-    print "Locating course pages"
     page = "http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/"
-    coursesToAdd = scraper.getAllCoursePages(page)
-
-    print "Locating course lecture videos"
-    major_id = majors.index("Computer Science") + 1
-    course_id = 1
-    for url in coursesToAdd:
-        course = scraper.main([url])
-        if len(course.lectures) == 0:
-            continue
-        print "Creating course: " + course.title
-        c = Course(name=course.title, description=course.description)
-        session.add(c)
-        #rel = MajorCourse(major_id=2, course_id=course_id)
-        #session.add(rel)
-        for lecture in course.lectures:
-            task = Task(course_id=course_id,
-                name=lecture[0],
-                url=lecture[1]
-            )
-            session.add(task)
-        course_id += 1
-
-        session.commit()
+    addCourses(page, session)
