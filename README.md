@@ -17,6 +17,9 @@ How it's unique:
 * Python 2.x
 * [Flask](http://flask.pocoo.org/)
 * [SQLAlchemy](http://www.sqlalchemy.org/)
+* [oauth2client](https://github.com/google/oauth2client)
+
+All dependencies (besides Python) can be installed by running pip install -r requirements.txt
 
 
 ## Initializing the database
