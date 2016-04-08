@@ -21,7 +21,6 @@ How it's unique:
 
 All dependencies (besides Python) can be installed by running pip install -r requirements.txt
 
-
 ## Initializing the database
 `$ python database_setup.py`
 
@@ -34,6 +33,15 @@ All dependencies (besides Python) can be installed by running pip install -r req
 6. Add your access point to the authorized javascript origins (your public IP, 127.0.0.1, localhost, etc)
 7. Add a placeholder site under "Authorized redirect URIs", eg: http://www.example.com
 8. Save the credentials file as `client_secrets.json` in the main directory.
+
+## Adding more courses (optional)
+`$ sudo python`
+```
+>>>from database_setup import addCourses
+>>># page = one of the links from http://ocw.mit.edu/courses/find-by-department/
+>>>addCourses(page)
+>>>exit()
+```
 
 ## Starting the server
 `$ sudo python project.py`
