@@ -140,11 +140,11 @@ def showCoursesPublic():
     courses = session.query(Course).order_by(asc(Course.name))
     return render_template('coursesPublic.html', courses=courses, login_session=login_session, enrolled_courses=enrolled_courses)
 
-'''
-    Create a new task
-'''
 @app.route('/courses/<int:course_id>/tasks/new/', methods=['POST'])
 def newTask(course_id):
+    '''
+        Create a new task
+    '''
     if not isAdmin():
         return
     if request.method == 'POST':
@@ -158,11 +158,11 @@ def newTask(course_id):
         session.commit()
     return redirect(url_for('editCourseTasks', course_id=course_id))
 
-'''
-    Update a task
-'''
 @app.route('/tasks/<int:task_id>/edit/', methods=['POST'])
 def editTask(task_id):
+    '''
+        Update a task
+    '''
     if not isAdmin():
         return
     editedTask = session.query(Task).filter_by(task_id=task_id).one()
@@ -176,11 +176,11 @@ def editTask(task_id):
         session.commit()
         return redirect(url_for('editCourseTasks', course_id=editedTask.course_id))
 
-'''
-    Delete a task
-'''
 @app.route('/courses/<int:course_id>/tasks/<int:task_id>/delete/', methods=['POST'])
 def deleteTask(course_id, task_id):
+    '''
+        Delete a task
+    '''
     if not isAdmin():
         return
     if request.method == 'POST':
@@ -190,11 +190,11 @@ def deleteTask(course_id, task_id):
         session.commit()
         return redirect(url_for('editCourseTasks', course_id=course_id))
 
-'''
-    Mark a task as complete
-'''
 @app.route('/courses/<int:course_id>/tasks/<int:task_id>/markComplete/', methods=['GET', 'POST'])
 def markTaskComplete(course_id, task_id):
+    '''
+        Mark a task as complete
+    '''
     task = session.query(Task).filter_by(task_id=task_id).one()
     if loggedin():
         user_id = getUserID(login_session["email"])
@@ -207,11 +207,12 @@ def markTaskComplete(course_id, task_id):
         flash('%s Successfully Completed' % task.name)
         session.commit()
     return redirect(redirect_url())
-'''
-    Mark a task as complete
-'''
+
 @app.route('/courses/<int:course_id>/tasks/<int:task_id>/markIncomplete/', methods=['GET', 'POST'])
 def markTaskIncomplete(course_id, task_id):
+    '''
+        Mark a task as complete
+    '''
     task = session.query(Task).filter_by(task_id=task_id).one()
     if loggedin():
         user_id = getUserID(login_session["email"])
@@ -225,11 +226,11 @@ def markTaskIncomplete(course_id, task_id):
         session.commit()
     return redirect(redirect_url())
 
-'''
-    Edit a course's tasks
-'''
 @app.route('/courses/<int:course_id>/editTasks')
 def editCourseTasks(course_id):
+    '''
+        Edit a course's tasks
+    '''
     if not isAdmin():
         return
     course = session.query(Course).filter_by(course_id=course_id).one()
@@ -239,11 +240,11 @@ def editCourseTasks(course_id):
         course=course,
         login_session=login_session)
 
-'''
-    Create a new course
-'''
 @app.route('/courses/new/', methods=['POST'])
 def newCourse():
+    '''
+        Create a new course
+    '''
     if not isAdmin():
         return
     if request.method == 'POST':
@@ -253,19 +254,19 @@ def newCourse():
         session.commit()
         return redirect(url_for('showCourses'))
 
-'''
-    Read courses
-'''
 @app.route('/courses.html')
 def showCourses():
+    '''
+        Read courses
+    '''
     courses = session.query(Course).order_by(asc(Course.name))
     return render_template('courses.html', courses=courses, login_session=login_session)
 
-'''
-    View a specific course
-'''
 @app.route('/courses/<int:course_id>')
 def viewCourse(course_id):
+    '''
+        View a specific course
+    '''
     course = session.query(Course).filter_by(course_id=course_id).one()
     course.enrolled = loggedin() and userEnrolled(course_id, getUserID(login_session["email"]))
     tasks = getUserTasksByCourse(course_id, course.enrolled)
@@ -274,11 +275,11 @@ def viewCourse(course_id):
         course=course,
         login_session=login_session)
 
-'''
-    Update a course
-'''
 @app.route('/courses/<int:course_id>/edit/', methods=['POST'])
 def editCourse(course_id):
+    '''
+        Update a course
+    '''
     if not isAdmin():
         return
     editedCourse = session.query(Course).filter_by(course_id=course_id).one()
@@ -294,11 +295,11 @@ def editCourse(course_id):
         session.commit()
         return redirect(url_for('showCourses'))
 
-'''
-    Enroll in a course
-'''
 @app.route('/courses/<int:course_id>/enroll/', methods=['POST'])
 def enrollInCourse(course_id):
+    '''
+        Enroll in a course
+    '''
     if request.method == 'POST':
         courseTasks = session.query(Task).filter_by(course_id=course_id).all()
         user_id = getUserID(login_session["email"])
@@ -313,11 +314,11 @@ def enrollInCourse(course_id):
         flash('Successfully enrolled in %s' % selectedCourse.name)
         return redirect(url_for('showCoursesPublic'))
 
-'''
-    Unenroll from a course
-'''
 @app.route('/courses/<int:course_id>/unenroll/', methods=['POST'])
 def unenrollInCourse(course_id):
+    '''
+        Unenroll from a course
+    '''
     if request.method == 'POST':
         # Delete enrolled tasks
         user_id = getUserID(login_session["email"])
@@ -333,11 +334,11 @@ def unenrollInCourse(course_id):
         flash('Successfully unenrolled from %s' % selectedCourse.name)
         return redirect(url_for('showCoursesPublic'))
 
-'''
-    Delete a course
-'''
 @app.route('/courses/<int:course_id>/delete/', methods=['POST'])
 def deleteCourse(course_id):
+    '''
+        Delete a course
+    '''
     if not isAdmin():
         return
     courseToDelete = session.query(Course).filter_by(course_id=course_id).one()
@@ -347,11 +348,11 @@ def deleteCourse(course_id):
         session.commit()
         return redirect(url_for('showCourses'))
 
-'''
-    Create a new major
-'''
 @app.route('/majors/new/', methods=['POST'])
 def newMajor():
+    '''
+        Create a new major
+    '''
     if not isAdmin():
         return
     if request.method == 'POST':
@@ -361,22 +362,22 @@ def newMajor():
         session.commit()
         return redirect(url_for('showMajors'))
 
-'''
-    Read majors
-'''
 @app.route('/majors.html')
 def showMajors():
+    '''
+        Read majors
+    '''
     majors = session.query(Major).order_by(asc(Major.name))
     return render_template('majors.html',
         majors=majors,
         login_session=login_session
     )
 
-'''
-    Update a major
-'''
 @app.route('/majors/<int:major_id>/edit/', methods=['POST'])
 def editMajor(major_id):
+    '''
+        Update a major
+    '''
     if not isAdmin():
         return
     if request.method == 'POST':
@@ -391,11 +392,11 @@ def editMajor(major_id):
         session.commit()
         return redirect(url_for('showMajors'))
 
-'''
-    Delete a major
-'''
 @app.route('/majors/<int:major_id>/delete/', methods=['POST'])
 def deleteMajor(major_id):
+    '''
+    Delete a major
+    '''
     if not isAdmin():
         return
     if request.method == 'POST':
@@ -405,11 +406,11 @@ def deleteMajor(major_id):
         session.commit()
         return redirect(url_for('showMajors', major_id=major_id))
 
-'''
-    Enroll in a major
-'''
 @app.route('/majors/<int:major_id>/enroll/', methods=['POST'])
 def enrollInMajor(major_id):
+    '''
+        Enroll in a major
+    '''
     if request.method == 'POST':
         selectedMajor = session.query(Major).filter_by(major_id=major_id).one()
         user_id = getUserID(login_session["email"])
@@ -425,11 +426,11 @@ def enrollInMajor(major_id):
         flash('You have enrolled in %s' % selectedMajor.name)
         return redirect(url_for('showMajorsPublic'))
 
-'''
-    Unenroll from a major
-'''
 @app.route('/majors/<int:major_id>/unenroll/', methods=['POST'])
 def unenrollFromMajor(major_id):
+    '''
+        Unenroll from a major
+    '''
     if request.method == 'POST':
         selectedMajor = session.query(Major).filter_by(major_id=major_id).one()
         user_id = getUserID(login_session["email"])
@@ -445,11 +446,11 @@ def unenrollFromMajor(major_id):
         flash('You have unenrolled from %s' % selectedMajor.name)
         return redirect(url_for('showMajorsPublic'))
 
-'''
-    Edit courses for a major
-'''
 @app.route('/majors/<int:major_id>/courses/')
 def editMajorCourses(major_id):
+    '''
+        Edit courses for a major
+    '''
     if not isAdmin():
         return
     courses = getCoursesByMajor(major_id)
@@ -461,11 +462,11 @@ def editMajorCourses(major_id):
         courses=courses,
         major=major)
 
-'''
-    Add a course to a major
-'''
 @app.route('/majors/<int:major_id>/courses/add/', methods=['POST'])
 def addCourseToMajor(major_id):
+    '''
+        Add a course to a major
+    '''
     if not isAdmin():
         return
     course_id = request.form.get("courseId")
@@ -477,11 +478,11 @@ def addCourseToMajor(major_id):
     flash('Successfully added course %s to major' % course.name)
     return redirect(url_for("editMajorCourses", major_id=major_id))
 
-'''
-    Remove a course from a major
-'''
 @app.route('/majors/<int:major_id>/courses/<int:course_id>/delete/', methods=["POST"])
 def removeCourseFromMajor(major_id, course_id):
+    '''
+        Remove a course from a major
+    '''
     if not isAdmin():
         return
     course = session.query(Course).filter_by(course_id=course_id).one()
@@ -492,11 +493,11 @@ def removeCourseFromMajor(major_id, course_id):
     flash('Successfully removed course %s from major' % course.name)
     return redirect(url_for("editMajorCourses", major_id=major_id))
 
-'''
-    View a specific major
-'''
 @app.route('/majors/<int:major_id>')
 def viewMajor(major_id):
+    '''
+        View a specific major
+    '''
     major = session.query(Major).filter_by(major_id=major_id).one()
     courses = getCoursesByMajor(major_id)
     return render_template('majorPage.html',
@@ -513,10 +514,10 @@ def showLogin():
     # return "The current session state is %s" % login_session['state']
     return render_template('login.html', login_session=login_session, STATE=state, CLIENT_ID=CLIENT_ID)
 
-'''
-    Create a user
-'''
 def createUser(login_session):
+    '''
+        Create a user
+    '''
     newUser = User(name=login_session["username"],
         email=login_session['email'],
         picture=login_session['picture'])
@@ -531,19 +532,19 @@ def createUser(login_session):
         print "Error: Multiple users with same email"
         return None
 
-'''
-    Read users
-'''
 @app.route('/users.html')
 def showUsers():
+    '''
+        Read users
+    '''
     users = session.query(User).order_by(asc(User.user_id))
     return render_template('users.html', users=users, login_session=login_session)
 
-'''
-    Update a user
-'''
 @app.route('/users/<int:user_id>/update/', methods=['POST'])
 def editUser(user_id):
+    '''
+        Update a user
+    '''
     if request.method == 'POST':
         if not isAdmin():
             return
@@ -558,11 +559,11 @@ def editUser(user_id):
         session.commit()
         return redirect(url_for('showUsers'))
 
-'''
-    Delete a user
-'''
 @app.route('/users/<int:user_id>/delete/', methods=['POST'])
 def deleteUser(user_id):
+    '''
+        Delete a user
+    '''
     if request.method == 'POST':
         if not isAdmin():
             return
