@@ -28,10 +28,10 @@ All dependencies (besides Python) can be installed by running pip install -r req
 ## Creating credentials
 1. Go to https://console.developers.google.com
 2. Create a new project
-3. Click "enable and manage APIs"
 4. Click "credentials"
 5. Create credentials --> OAuth client ID --> Web applications
-6. Add your access point to the authorized javascript origins (your public IP, 127.0.0.1, localhost, etc)
+6. Add your access point to the authorized javascript origins (localhost or 127.0.0.1 for running locally, your public IP, etc)
+  1. For example: "http://localhost:8080"
 7. Add a placeholder site under "Authorized redirect URIs", eg: http://www.example.com
 8. Save the credentials file as `client_secrets.json` in the main directory.
 
