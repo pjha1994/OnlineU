@@ -15,6 +15,7 @@ How it's unique:
 
 ## Dependencies
 * Python 2.x
+* OpenSSL
 * [Flask](http://flask.pocoo.org/)
 * [SQLAlchemy](http://www.sqlalchemy.org/)
 * [oauth2client](https://github.com/google/oauth2client)
