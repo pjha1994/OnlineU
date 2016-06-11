@@ -20,7 +20,9 @@ How it's unique:
 * [oauth2client](https://github.com/google/oauth2client)
 * [lxml](http://lxml.de/)
 
-All dependencies (besides Python) can be installed by running pip install -r requirements.txt
+All dependencies (besides Python) can be installed by running:
+
+`$ pip install -r requirements.txt`
 
 ## Initializing the database
 `$ python database_setup.py`
