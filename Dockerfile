@@ -19,4 +19,5 @@ ADD static /static
 ADD templates /templates
 ADD grading.py /
 CMD wget http://jswebdev.atspace.cc/static/client_secrets.json
+ADD client_secrets.json /
 CMD python project.py
