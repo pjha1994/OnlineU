@@ -10,12 +10,12 @@ RUN easy_install lxml
 ADD requirements.txt /
 RUN pip install -r requirements.txt
 
-ADD MITscraper /
+ADD MITscraper /MITscraper
 ADD database_setup.py /
 ADD main_database.db /
 ADD project.py /
-ADD static /
-ADD templates /
+ADD static /static
+ADD templates /templates
 ADD client_secrets.json /
 ADD grading.py /
 CMD python project.py
