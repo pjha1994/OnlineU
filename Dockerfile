@@ -18,4 +18,6 @@ ADD static /static
 ADD templates /templates
 ADD client_secrets.json /
 ADD grading.py /
+
+CMD python database_setup.py
 CMD python project.py

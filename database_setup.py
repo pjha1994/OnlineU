@@ -132,6 +132,29 @@ class Major(Base):
 engine = create_engine('sqlite:///' + DATABASE_NAME)
 Base.metadata.create_all(engine)
 
+def addCourse(url, session=None):
+    if session is None:
+        Base.metadata.bind = engine
+        DBSession = sessionmaker(bind=engine)
+        session = DBSession()
+
+    course = scraper.main([url])
+    if len(course.lectures) == 0:
+        return
+    print "Creating course: " + course.title
+    c = Course(name=course.title, description=course.description)
+    session.add(c)
+    session.commit()
+    for lecture in course.lectures:
+        task = Task(course_id=course_id,
+            name=lecture[0],
+            url=lecture[1]
+        )
+        session.add(task)
+    course_id += 1
+
+    session.commit()
+
 def addCourses(page, session=None):
     if session is None:
         Base.metadata.bind = engine
@@ -142,26 +165,8 @@ def addCourses(page, session=None):
     coursesToAdd = scraper.getAllCoursePages(page)
 
     print "Locating course lecture videos"
-    #major_id = majors.index("Computer Science") + 1
-    course_id = 1
     for url in coursesToAdd:
-        course = scraper.main([url])
-        if len(course.lectures) == 0:
-            continue
-        print "Creating course: " + course.title
-        c = Course(name=course.title, description=course.description)
-        session.add(c)
-        #rel = MajorCourse(major_id=2, course_id=course_id)
-        #session.add(rel)
-        for lecture in course.lectures:
-            task = Task(course_id=course_id,
-                name=lecture[0],
-                url=lecture[1]
-            )
-            session.add(task)
-        course_id += 1
-
-        session.commit()
+        addCourse(url, session=session)
 
 
 if __name__ == "__main__":
@@ -188,5 +193,11 @@ if __name__ == "__main__":
     session.add(admin)
 
     # Add courses
-    page = "http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/"
-    addCourses(page, session)
+    try:
+        f = open("courseLinks.txt", 'r')
+        urls = f.readlines()
+        f.close()
+        for url in urls:
+            addCourse(url.strip(), session)
+    except IOError:
+        print "Failed to open course URL file"
