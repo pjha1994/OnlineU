@@ -128,6 +128,7 @@ def main(args):
         description = ""
 
     cal = []
+    '''
     try:
         # Load calendar
         page = loadPage(calendar(URL))
@@ -146,8 +147,10 @@ def main(args):
             cal.append(crow)
     except urllib2.HTTPError:
         pass
+    '''
 
     c = []
+    '''
     try:
         # Load assignments
         page = loadPage(assignments(URL))
@@ -169,6 +172,7 @@ def main(args):
             c.append(crow)
     except urllib2.HTTPError:
         pass
+    '''
 
     # Load lectures
     try:

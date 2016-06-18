@@ -153,6 +153,7 @@ def addCourse(url, session=None, major_id=None):
     # Add to major
     if major_id is not None:
         rel = MajorCourse(major_id=major_id, course_id=c.course_id)
+        session.add(rel)
 
     # Add Lectures
     for lecture in course.lectures:
