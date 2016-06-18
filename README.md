@@ -1,6 +1,8 @@
 # Online U
 
-[![Join the chat at https://gitter.im/jdsutton/OnlineU](https://badges.gitter.im/jdsutton/OnlineU.svg)](https://gitter.im/jdsutton/OnlineU?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![badge](https://bestpractices.coreinfrastructure.org/projects/110/badge)](https://bestpractices.coreinfrastructure.org/projects/110)
+[![Join the chat at https://gitter.im/jdsutton/OnlineU](https://badges.gitter.im/jdsutton/OnlineU.svg)](https://gitter.im/jdsutton/OnlineU?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
+![build status](https://travis-ci.org/jdsutton/OnlineU.svg?branch=master)
+[![badge](https://bestpractices.coreinfrastructure.org/projects/110/badge)](https://bestpractices.coreinfrastructure.org/projects/110)
 
 This is a website for free, curated online courses.
 
