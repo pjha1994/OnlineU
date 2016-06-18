@@ -12,7 +12,6 @@ RUN pip install -r requirements.txt
 
 ADD database_setup.py /
 CMD python database_setup.py
-ADD main_database.db /
 
 ADD MITscraper /MITscraper
 ADD project.py /
