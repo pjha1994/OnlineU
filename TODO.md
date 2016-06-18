@@ -1,4 +1,6 @@
 # Todo
+* Phase 0: Public Site
+  * Get a Docker container of this app running on AWS so everyone can use it!
 * Phase 1: Curriculum functionality
   * Add support for optional and required minors
 * Phase 2: Exams, quizzes, programming challenges, and grading
