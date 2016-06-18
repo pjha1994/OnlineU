@@ -25,6 +25,19 @@ All dependencies (besides Python) can be installed by running:
 
 `$ pip install -r requirements.txt`
 
+If you have installation issues, try using [virutalenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/)
+
+```
+$ cd path/to/OnlineU
+$ pip install virtualenv
+$ virtualenv venv
+$ virtualenv -p /usr/bin/python2.7 venv
+$ source venv/bin/activate
+$ sudo pip install -r requirements.txt
+```
+
+Then, when you are done: `$ deactivate`
+
 ## Initializing the database
 `$ python database_setup.py`
 
@@ -49,6 +62,12 @@ All dependencies (besides Python) can be installed by running:
 
 ## Starting the server
 `$ sudo python project.py`
+
+or, using Docker:
+```
+$ make image
+$ make container
+````
 
 ## Contributing
 
