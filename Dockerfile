@@ -11,6 +11,7 @@ ADD requirements.txt /
 RUN pip install -r requirements.txt
 
 ADD database_setup.py /
+ADD courseLinks.txt /
 CMD python database_setup.py
 
 ADD MITscraper /MITscraper

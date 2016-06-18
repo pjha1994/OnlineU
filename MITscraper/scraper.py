@@ -6,6 +6,7 @@ import re
 MAIN_PAGE = "http://ocw.mit.edu"
 URL = "http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-042j-mathematics-for-computer-science-fall-2010/index.htm"
 COURSES_PAGE = "http://ocw.mit.edu/courses/"
+DEPARTMENTS_PAGE = "http://ocw.mit.edu/courses/find-by-department/"
 
 class Course():
     def __init__(self, title, description, url, instructors, cal, assignments, lec):
@@ -72,6 +73,23 @@ def loadPage(url):
     request = urllib2.Request(url)
     response = urllib2.urlopen(request)
     return response.read()
+
+def getAllDepartments():
+    page = loadPage(DEPARTMENTS_PAGE)
+    tree = html.fromstring(page)
+    links = tree.xpath('//ul[@class="deptList"]/li/a')
+    departments = []
+
+    for link in links:
+        href = link.attrib["href"]
+        majorName = None
+        majorName = next(link.itertext())
+        if href.startswith("/courses"):
+            href = MAIN_PAGE + href
+            if not href in departments:
+                departments.append((href, majorName))
+
+    return departments
 
 def getAllCoursePages(basePage=COURSES_PAGE):
     page = loadPage(basePage)
