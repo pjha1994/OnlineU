@@ -21,7 +21,6 @@ from flask import make_response
 import requests
 
 app = Flask(__name__, static_url_path="/static")
-#app._static_folder = "~/Desktop/onlineU/static"
 
 HOST = '0.0.0.0'
 PORT = 80
@@ -37,6 +36,20 @@ Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
+
+@app.teardown_request
+def teardown_request(exception=None):
+    '''
+        Runs at the end of each request,
+        regardless of whether an exception was raised
+    '''
+    if exception:
+        session.rollback()
+
+@app.errorhandler(500)
+def internal_server_error(exception):
+    flash("Something went wrong! We are sorry.")
+    return redirect(url_for("showHomepage"))
 
 @app.route("/static/<path:path>")
 def sendStaticFile(path):
@@ -206,6 +219,7 @@ def markTaskComplete(course_id, task_id):
         session.add(completion)
         flash('%s Successfully Completed' % task.name)
         session.commit()
+
     return redirect(redirect_url())
 
 @app.route('/courses/<int:course_id>/tasks/<int:task_id>/markIncomplete/', methods=['GET', 'POST'])
@@ -213,6 +227,10 @@ def markTaskIncomplete(course_id, task_id):
     '''
         Mark a task as complete
     '''
+    if course_id is None or task_id is None:
+        flash('Failed to mark task %s as incomplete' % task.name)
+        return redirect(redirect_url())
+
     task = session.query(Task).filter_by(task_id=task_id).one()
     if loggedin():
         user_id = getUserID(login_session["email"])
@@ -224,6 +242,7 @@ def markTaskIncomplete(course_id, task_id):
         session.add(completion)
         flash('%s marked as incomplete' % task.name)
         session.commit()
+
     return redirect(redirect_url())
 
 @app.route('/courses/<int:course_id>/editTasks')
@@ -887,8 +906,10 @@ def redirect_url(default='index'):
 
 if __name__ == '__main__':
     app.secret_key = 'P0HROJGcAoglvmXBtwjLC69v'
-    app.debug = True
+    app.debug = False
     #context = SSL.Context(SSL.SSLv23_METHOD)
     #context.use_privatekey_file('/home/john/Desktop/onlineU/server.key')
     #context.use_certificate_file('/home/john/Desktop/onlineU/server.crt')
-    app.run(host=HOST, port=PORT)
+    app.run(
+        host=HOST,
+        port=PORT)
