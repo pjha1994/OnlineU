@@ -5,7 +5,7 @@
 [![badge](https://bestpractices.coreinfrastructure.org/projects/110/badge)](https://bestpractices.coreinfrastructure.org/projects/110)
 
 This is a website for free, curated online courses.
-[The site is currently online!](http://54.200.122.32/index.html) (no login right now)
+[The site is currently online!](http://54.200.122.32/index.html)
 
 How it's unique:
 * It is 100% free. There will be no charge to earn certificates.
